@@ -123,7 +123,6 @@ npm run dev
 
 **Jatin Bhosale**  
 *   GitHub: [@JatinBhoslae](https://github.com/JatinBhoslae)
-*   Status: `Sector Lead - Active Development`
 
 **Hemant Jawale**  
 *   GitHub: [@hemantjawale](https://github.com/hemantjawale)
