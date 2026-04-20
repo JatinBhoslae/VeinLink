@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./src/utils/blood.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vien Link</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Open Source Leaflet Mapping Engine (Bypasses Google Maps Billing) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+      (function(){
+        try {
+          var saved = localStorage.getItem('darkMode');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var enableDark = (saved === 'true') || (saved === null && prefersDark);
+          var root = document.documentElement;
+          if (enableDark) root.classList.add('dark'); else root.classList.remove('dark');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Persistent Translation Hub -->
+    <div id="google_translate_wrapper">
+        <div id="google_translate_element"></div>
+    </div>
+    
+
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        const container = document.getElementById('google_translate_element');
+        if (container && window.google && window.google.translate && window.google.translate.TranslateElement) {
+          const layout = window.google.translate.TranslateElement.InlineLayout ? 
+                         window.google.translate.TranslateElement.InlineLayout.SIMPLE : 
+                         1;
+          new window.google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi,mr,gu,ta,te,kn,ml,pa,bn',
+            layout: layout,
+            autoDisplay: false
+          }, 'google_translate_element');
+        }
+      }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <style>
+      /* PREMIUM TACTICAL HUD STYLING */
+      .language-selector-container {
+        position: fixed;
+        bottom: 32px;
+        left: 32px;
+        z-index: 10000;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+
+
+      /* Base widget styling - Glassmorphism */
+      .goog-te-gadget-simple {
+        background: rgba(255, 255, 255, 0.7) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid rgba(226, 232, 240, 0.5) !important;
+        padding: 12px 20px !important;
+        border-radius: 20px !important;
+        font-family: 'Inter', system-ui, sans-serif !important;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        transition: all 0.3s ease !important;
+        cursor: pointer !important;
+      }
+
+      .goog-te-gadget-simple:hover {
+        background: rgba(255, 255, 255, 0.9) !important;
+        transform: translateY(-6px) scale(1.04);
+        border-color: #ef4444 !important;
+      }
+
+      /* Globe Icon Upgrade */
+      .goog-te-gadget-simple::before {
+        content: "";
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+        background-color: #ef4444;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E") no-repeat center;
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E") no-repeat center;
+        animation: pulse_globe 3s infinite;
+      }
+      @keyframes pulse_globe { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+      /* Dark Mode Optimization */
+      .dark .goog-te-gadget-simple {
+        background: rgba(31, 41, 55, 0.7) !important;
+        border-color: rgba(75, 85, 99, 0.4) !important;
+        color: #f3f4f6 !important;
+      }
+      .dark .goog-te-menu-value span { color: #f3f4f6 !important; }
+
+      /* Hide Tooltips and Highlights */
+      .goog-tooltip, .goog-tooltip:hover { display: none !important; }
+      .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; border: none !important; }
+      #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+      font { background-color: transparent !important; box-shadow: none !important; }
+      
+      /* Tactical Banner Stripping */
+      .goog-te-banner-frame, .skiptranslate, #goog-gt-tt { display: none !important; visibility: hidden !important; }
+      body { top: 0 !important; position: static !important; }
+      .goog-te-gadget { font-size: 0 !important; color: transparent !important; }
+      .goog-te-gadget span { display: none !important; }
+      .goog-logo-link { display: none !important; }
+
+      /* HUD Selector Lock - RELOCATED TO NAV */
+      #google_translate_wrapper {
+        display: none;
+      }
+      #google_translate_element {
+        display: flex;
+        align-items: center;
+      }
+      .goog-te-gadget-simple {
+        background: rgba(255, 255, 255, 0.7) !important;
+        backdrop-filter: blur(12px) !important;
+        border: 1px solid rgba(226, 232, 240, 0.8) !important;
+        padding: 6px 12px !important;
+        border-radius: 12px !important;
+        font-family: 'Inter', sans-serif !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        height: 38px !important;
+        transition: all 0.2s ease !important;
+      }
+      .dark .goog-te-gadget-simple {
+        background: rgba(31, 41, 55, 0.7) !important;
+        border-color: rgba(75, 85, 99, 0.4) !important;
+      }
+    </style>
+  </body>
+</html>
+
