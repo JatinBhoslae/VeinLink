@@ -2,6 +2,8 @@
 
 This is the central engine of the VienLink mobilization system. It handles real-time socket synchronization, geospatial tracking, and the secure biometric verification core.
 
+**🛰️ Live Operational Signal:** [https://veinlink.onrender.com](https://veinlink.onrender.com)
+
 ---
 
 ## 📡 1. Tactical Environment Configuration
