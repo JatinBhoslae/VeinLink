@@ -11,6 +11,7 @@ VienLink is a next-generation Strategic Blood Mobilization System designed to ne
 ---
 
 ## 🔗 Command Center
+- **🚀 Live Tactical HUD:** [https://veinlink.vercel.app](https://veinlink.vercel.app)
 - **🛰️ Live Strategic API:** [https://veinlink.onrender.com](https://veinlink.onrender.com)
 - **📂 GitHub Repository:** [github.com/JatinBhoslae/VienLink](https://github.com/JatinBhoslae/VienLink)
 
