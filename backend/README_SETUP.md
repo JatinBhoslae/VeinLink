@@ -1,43 +1,84 @@
-# Backend Setup Instructions
+# 🖥️ VienLink Backend - Strategic Command Center
 
-## Environment Variables
+This is the central engine of the VienLink mobilization system. It handles real-time socket synchronization, geospatial tracking, and the secure biometric verification core.
 
-Make sure your `backend/.env` file contains:
+---
+
+## 📡 1. Tactical Environment Configuration
+
+Create a `.env` file in the `backend/` directory and populate it with the following tactical parameters:
 
 ```env
 PORT=5000
 NODE_ENV=development
-MONGODB_URI=mongodb+srv://hemantjawale24_db_user:eaCmjALuOLMQUVp4@cluster0.1f5ntul.mongodb.net/vienlink?retryWrites=true&w=majority
-JWT_SECRET=your_super_secret_jwt_key_change_this_in_production_2024
+
+# 🗄️ Database Hub
+MONGODB_URI=your_mongodb_atlas_connection_string
+
+# 🔐 Security Protocol
+JWT_SECRET=your_secure_random_hash_key
 JWT_EXPIRE=7d
+
+# ☁️ Media Storage (Identity Images)
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+# 📧 Email Engine (Mission Briefings)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_app_password
 ```
 
-## Create Test Super Admin
+---
 
-Run this command to create a test super admin:
+## 🛠️ 2. Core Initialisation
+
+Execute the following commands to synchronize dependencies and prepare the grid:
 
 ```bash
+# Install tactical dependencies
+npm install
+
+# Seed the first Super Admin dossier
 npm run seed:admin
 ```
 
-This will create:
-- **Email:** admin@vienlink.com
-- **Password:** admin123
+---
 
-## Test Login Credentials
+## 🔐 3. Access Credentials (Default)
 
-### Super Admin
-- **Email:** admin@vienlink.com
-- **Password:** admin123
+After running the seed script, you can access the Command Center using these default credentials. **Change these immediately after first login.**
 
-⚠️ **Important:** Change the password after first login!
+| Security Level | Email | Password |
+| :--- | :--- | :--- |
+| **Super Admin** | `admin@vienlink.com` | `admin123` |
 
-## Starting the Server
+---
+
+## 🚀 4. Mission Execution
+
+To launch the backend signal:
 
 ```bash
-npm install
+# Standard Launch
+npm start
+
+# Development (Live-Reload)
 npm run dev
 ```
 
-The server will run on `http://localhost:5000`
+The signal will be broadcast on: `http://localhost:5000`
 
+---
+
+## 🛰️ 5. Automated Tactical Jobs
+The backend runs several background cron jobs to maintain the sector:
+*   **Notification Pulse**: Checks for upcoming donation windows.
+*   **Stock Monitor**: Live monitoring of blood unit expiration dates.
+*   **Geospatial Sync**: 3s heartbeat coordination via Socket.io.
+
+---
+
+*VienLink — Pulse of Humanity.*
