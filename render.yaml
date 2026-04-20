@@ -1,0 +1,42 @@
+services:
+  # Backend Web Service
+  - type: web
+    name: vien-link-api
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    rootDir: backend
+    envVars:
+      - key: NODE_VERSION
+        value: 18.16.0
+      - key: MONGO_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+
+  # Frontend Static Site
+  - type: static
+    name: vien-link-hud
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    publishPath: dist
+    rootDir: frontend
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: vien-link-api
+          type: web
+          property: host
+        suffix: /api
