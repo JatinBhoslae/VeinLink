@@ -27,3 +27,4 @@ Thumbs.db
 *.pem
 .cache/
 
+backend/mission_logs.txt
