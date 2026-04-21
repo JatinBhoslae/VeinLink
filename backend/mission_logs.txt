@@ -1388,3 +1388,7 @@
 [2026-04-21T08:59:39.483Z] ✅ [PATCH] /api/public-auth/location - 200 (33ms)
 [2026-04-21T08:59:41.022Z] ✅ [OPTIONS] /api/notifications?page=1&limit=20 - 200 (1ms)
 [2026-04-21T08:59:41.048Z] ✅ [GET] /api/notifications?page=1&limit=20 - 200 (25ms)
+[2026-04-21T09:01:53.796Z] ✅ MongoDB Connected Successfuly
+[2026-04-21T09:01:53.815Z] 🚀 Vein Link Server Initialized on Port 5005
+[2026-04-21T09:01:55.577Z] 🔌 [SOCKET] Operative identified: jatinbhosale428@gmail.com (public)
+[2026-04-21T09:01:56.560Z] 🔌 [SOCKET] Operative identified: jatinbhosale428@gmail.com (public)

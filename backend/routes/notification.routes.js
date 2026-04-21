@@ -1,6 +1,7 @@
 import express from 'express';
 import { protectPublic } from '../middleware/publicAuth.middleware.js';
 import { protect } from '../middleware/auth.middleware.js';
+import { protectAny } from '../middleware/GeneralAuth.middleware.js';
 import NotificationLog from '../models/NotificationLog.model.js';
 import PublicUser from '../models/PublicUser.model.js';
 import donorNotificationService from '../services/donorNotification.service.js';
@@ -37,21 +38,23 @@ router.patch('/preferences', protectPublic, async (req, res, next) => {
 
 /**
  * @route   GET /api/notifications
- * @desc    Get paginated notification logs for a donor
- * @access  Private (Donor)
+ * @desc    Get paginated notification logs for any user type
+ * @access  Private (Staff or Donor)
  */
-router.get('/', protectPublic, async (req, res, next) => {
+router.get('/', protectAny, async (req, res, next) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 20;
         const skip = (page - 1) * limit;
 
+        const userId = req.user?._id || req.publicUser?._id;
+
         const [notifications, total] = await Promise.all([
-            NotificationLog.find({ userId: req.publicUser._id })
+            NotificationLog.find({ userId })
                 .sort({ createdAt: -1 })
                 .skip(skip)
                 .limit(limit),
-            NotificationLog.countDocuments({ userId: req.publicUser._id })
+            NotificationLog.countDocuments({ userId })
         ]);
 
         res.json({
@@ -70,12 +73,13 @@ router.get('/', protectPublic, async (req, res, next) => {
 
 /**
  * @route   GET /api/notifications/logs
- * @desc    Get last 50 notification logs for a donor
- * @access  Private (Donor)
+ * @desc    Get last 50 notification logs for any user type
+ * @access  Private (Staff or Donor)
  */
-router.get('/logs', protectPublic, async (req, res, next) => {
+router.get('/logs', protectAny, async (req, res, next) => {
     try {
-        const logs = await NotificationLog.find({ userId: req.publicUser._id })
+        const userId = req.user?._id || req.publicUser?._id;
+        const logs = await NotificationLog.find({ userId })
             .sort({ createdAt: -1 })
             .limit(50);
         res.json({ success: true, data: logs });
