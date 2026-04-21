@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import { calculateNextEligibleDate } from '../utils/eligibility.js';
 
 const badgeSchema = new mongoose.Schema(
   {
@@ -98,6 +99,13 @@ const publicUserSchema = new mongoose.Schema(
 );
 
 publicUserSchema.pre('save', async function (next) {
+  // Sync Next Eligible Date based on Last Donation Pulse
+  if (this.isModified('lastDonationDate') || this.isModified('gender')) {
+    if (this.lastDonationDate) {
+      this.nextEligibleDate = calculateNextEligibleDate(this.lastDonationDate, this.gender);
+    }
+  }
+
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 12);
   next();

@@ -94,7 +94,7 @@ export const HospitalQRScanner = () => {
             console.log("🔍 Scanned Text:", decodedText);
             let scanPayload = null;
             
-            // 1. Check for VienLink URL Protocol
+            // 1. Check for Vein Link URL Protocol
             if (decodedText.includes('/v-id/')) {
                 const parts = decodedText.split('/v-id/');
                 let id = parts[parts.length - 1].split('?')[0].split('/')[0];
@@ -103,7 +103,7 @@ export const HospitalQRScanner = () => {
                 }
             } 
             
-            // 2. Check for VienLink JSON Protocol
+            // 2. Check for Vein Link JSON Protocol
             if (!scanPayload) {
                 try {
                     const parsed = JSON.parse(decodedText);
@@ -118,7 +118,7 @@ export const HospitalQRScanner = () => {
                 scanPayload = { id: decodedText.trim() };
             }
 
-            // 4. Identity Check: Is this a VienLink code or fake?
+            // 4. Identity Check: Is this a Vein Link code or fake?
             if (!scanPayload) {
                 console.warn("🛡️ Security Breach: Invalid Protocol Signature detected");
                 setScanResult('error');
@@ -159,7 +159,7 @@ export const HospitalQRScanner = () => {
                 setParsedData({
                     ...response.data.data,
                     badges: response.data.data.badges || [],
-                    platform: 'VienLink',
+                    platform: 'Vein Link',
                     verified: true
                 });
                 toast.success('Identity Synchronized');
@@ -324,7 +324,7 @@ export const HospitalQRScanner = () => {
                         <div className="h-full min-h-[400px] flex flex-col items-center justify-center border-4 border-dashed border-slate-200 dark:border-slate-800 rounded-[3rem] text-slate-300 dark:text-slate-700 p-12 text-center space-y-4">
                             <ShieldCheck size={80} strokeWidth={1} />
                             <h3 className="text-2xl font-black uppercase tracking-tighter">Awaiting Authorization</h3>
-                            <p className="max-w-xs text-sm font-medium">Scan a verified VienLink Protocol signature to display tactical data.</p>
+                            <p className="max-w-xs text-sm font-medium">Scan a verified Vein Link Protocol signature to display tactical data.</p>
                         </div>
                     ) : scanResult === 'error' ? (
                         <div className="h-full bg-red-50 dark:bg-red-900/10 border-4 border-red-100 dark:border-red-900/30 rounded-[3rem] p-12 flex flex-col items-center justify-center text-center space-y-6 animate-in zoom-in-95 duration-300">
@@ -444,7 +444,7 @@ export const HospitalQRScanner = () => {
                                                         </div>
                                                     </div>
                                                     <div className="mt-4 md:mt-0 px-3 py-1 bg-slate-200 dark:bg-slate-800 rounded-lg text-[9px] font-black uppercase tracking-[0.2em] text-slate-500">
-                                                        {parsedData?.platform || 'VienLink'} Verified
+                                                        {parsedData?.platform || 'Vein Link'} Verified
                                                     </div>
                                                 </div>
                                             ))}

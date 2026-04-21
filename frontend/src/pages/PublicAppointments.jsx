@@ -95,7 +95,7 @@ export const PublicAppointments = () => {
         logging: false
       });
       const link = document.createElement('a');
-      link.download = `VienLink-Mission-${qrModalAppt?._id?.slice(-6) || 'Signature'}.png`;
+      link.download = `Vein Link-Mission-${qrModalAppt?._id?.slice(-6) || 'Signature'}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
       toast.success('Mission Signature Downloaded');

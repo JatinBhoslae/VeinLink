@@ -83,12 +83,12 @@ export const Analytics = () => {
       doc.setFontSize(28);
       doc.setTextColor(31, 41, 55);
       doc.setFont('helvetica', 'bold');
-      doc.text('VIENLINK INTELLIGENCE', 25, 30);
+      doc.text('VEIN LINK INTELLIGENCE', 25, 30);
       doc.setFontSize(9);
       doc.setTextColor(150, 150, 150);
       doc.text(`VL-STATUS-RECURSIVE | ${now.toLocaleString()}`, 25, 38);
       
-      doc.save(`VienLink_Intelligence_${now.getTime()}.pdf`);
+      doc.save(`Vein Link_Intelligence_${now.getTime()}.pdf`);
       toast.success('Audit stored successfully!', { id: toastId });
     } catch (error) {
       toast.error('Audit generation failed', { id: toastId });
@@ -380,7 +380,7 @@ export const Analytics = () => {
                              </Bar>
                           </BarChart>
                        </ResponsiveContainer>
-                       <p className="mt-16 text-center text-slate-400 text-sm font-bold max-w-sm">Neural visualization of cohort density within the VienLink matrix.</p>
+                       <p className="mt-16 text-center text-slate-400 text-sm font-bold max-w-sm">Neural visualization of cohort density within the Vein Link matrix.</p>
                        <ChevronRight className="mt-12 text-primary-500 animate-bounce" size={32} />
                     </div>
                  </div>

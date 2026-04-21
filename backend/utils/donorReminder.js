@@ -31,7 +31,7 @@ const sendReminderEmail = async (user) => {
     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background: linear-gradient(135deg, #dc2626, #f97316); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
         <h1 style="color: white; margin: 0; font-size: 24px;">🩸 Time to Donate Again!</h1>
-        <p style="color: #fecaca; margin: 10px 0 0; font-size: 14px;">VienLink Blood Bank Management</p>
+        <p style="color: #fecaca; margin: 10px 0 0; font-size: 14px;">Vein Link Blood Bank Management</p>
       </div>
       <div style="background: #fff; padding: 30px; border: 1px solid #e5e7eb; border-top: none;">
         <p style="font-size: 16px; color: #374151;">Hi <strong>${user.firstName}</strong>,</p>
@@ -48,12 +48,12 @@ const sendReminderEmail = async (user) => {
           </div>
         </div>
         <p style="color: #6b7280; font-size: 14px; text-align: center;">
-          Book your next appointment on VienLink and earn more reward points + badges!
+          Book your next appointment on Vein Link and earn more reward points + badges!
         </p>
       </div>
       <div style="background: #f9fafb; padding: 20px; text-align: center; border-radius: 0 0 12px 12px; border: 1px solid #e5e7eb; border-top: none;">
         <p style="margin: 0; font-size: 12px; color: #9ca3af;">
-          VienLink — Making every drop count ❤️
+          Vein Link — Making every drop count ❤️
         </p>
       </div>
     </div>
@@ -61,9 +61,9 @@ const sendReminderEmail = async (user) => {
 
     try {
         await transporter.sendMail({
-            from: process.env.EMAIL_FROM || '"VienLink" <noreply@vienlink.com>',
+            from: process.env.EMAIL_FROM || '"Vein Link" <noreply@veinlink.com>',
             to: user.email,
-            subject: '🩸 You are eligible to donate blood again! — VienLink',
+            subject: '🩸 You are eligible to donate blood again! — Vein Link',
             html: htmlContent,
         });
         console.log(`📧 [Reminder] Sent to ${user.email}`);

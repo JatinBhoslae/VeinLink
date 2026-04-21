@@ -2,7 +2,7 @@
   "name": "vien-link-backend",
   "version": "1.0.0",
   "type": "module",
-  "description": "Vien Link Blood Bank Management System - Backend",
+  "description": "Vein Link Blood Bank Management System - Backend",
   "main": "server.js",
   "engines": {
     "node": "18.x"

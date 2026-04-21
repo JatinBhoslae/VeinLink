@@ -387,12 +387,12 @@ export const PublicIdentity = () => {
                 )}
 
                 {/* ═══════════════════════════════════════════════ */}
-                {/* VienLink CTA */}
+                {/* Vein Link CTA */}
                 {/* ═══════════════════════════════════════════════ */}
                 <div className="bg-gradient-to-br from-rose-600 to-rose-700 rounded-[2rem] p-6 text-white shadow-2xl shadow-rose-600/20 relative overflow-hidden">
                     <Droplet size={50} className="absolute -bottom-3 -right-3 opacity-20 rotate-12" />
-                    <h4 className="text-lg font-black uppercase tracking-tight mb-1.5">VienLink</h4>
-                    <p className="text-xs font-bold opacity-80 leading-relaxed mb-4">This is a verified donor profile on the VienLink blood donation network. Every donation saves up to 3 lives.</p>
+                    <h4 className="text-lg font-black uppercase tracking-tight mb-1.5">Vein Link</h4>
+                    <p className="text-xs font-bold opacity-80 leading-relaxed mb-4">This is a verified donor profile on the Vein Link blood donation network. Every donation saves up to 3 lives.</p>
                     <button 
                         onClick={() => navigate('/user/signup')}
                         className="w-full py-3 bg-white text-rose-600 rounded-xl font-black uppercase text-[10px] tracking-[0.15em] shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all"
@@ -402,7 +402,7 @@ export const PublicIdentity = () => {
                 </div>
 
                 <p className="text-[9px] font-bold text-slate-700 uppercase tracking-[0.4em] text-center pt-4 pb-8">
-                    VienLink • Verified Donor Identity
+                    Vein Link • Verified Donor Identity
                 </p>
             </div>
         </div>

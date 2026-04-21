@@ -14,8 +14,8 @@ const createNewAdmin = async () => {
         await mongoose.connect(process.env.MONGODB_URI);
         console.log('MongoDB Connected');
 
-        const email = 'superadmin@vienlink.com';
-        const password = 'VienLink@2026';
+        const email = 'superadmin@veinlink.com';
+        const password = 'Vein Link@2026';
 
         // Delete if already exists (so we get fresh credentials)
         await User.deleteOne({ email });

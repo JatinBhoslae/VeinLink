@@ -31,6 +31,10 @@ export const BloodCamps = () => {
       city: '',
       state: '',
       zipCode: '',
+      coordinates: {
+        latitude: 0,
+        longitude: 0,
+      }
     },
     timeSlots: [{ startTime: '09:00', endTime: '10:00', maxDonors: 10 }],
   });
@@ -118,6 +122,10 @@ export const BloodCamps = () => {
         city: camp.location?.city || '',
         state: camp.location?.state || '',
         zipCode: camp.location?.zipCode || '',
+        coordinates: {
+          latitude: camp.location?.coordinates?.latitude || 0,
+          longitude: camp.location?.coordinates?.longitude || 0,
+        }
       },
       timeSlots: camp.timeSlots.map(slot => ({
         startTime: slot.startTime,
@@ -159,7 +167,7 @@ export const BloodCamps = () => {
     // Header
     doc.setFontSize(22);
     doc.setTextColor(220, 38, 38); // Red
-    doc.text('VIENLINK BLOOD DONATION CAMP REPORT', 105, 20, { align: 'center' });
+    doc.text('VEIN LINK BLOOD DONATION CAMP REPORT', 105, 20, { align: 'center' });
     
     doc.setFontSize(10);
     doc.setTextColor(100);
@@ -211,7 +219,7 @@ export const BloodCamps = () => {
     // Footer
     doc.setFontSize(10);
     doc.setTextColor(150);
-    doc.text('Authorized by VienLink Hospital Management System', 105, 285, { align: 'center' });
+    doc.text('Authorized by Vein Link Hospital Management System', 105, 285, { align: 'center' });
     
     doc.save(`${camp.name}_Report.pdf`);
   };
@@ -246,7 +254,7 @@ export const BloodCamps = () => {
       assignedVolunteer: '',
       startDate: '',
       endDate: '',
-      location: { address: '', city: '', state: '', zipCode: '' },
+      location: { address: '', city: '', state: '', zipCode: '', coordinates: { latitude: 0, longitude: 0 } },
       timeSlots: [{ startTime: '09:00', endTime: '10:00', maxDonors: 10 }],
     });
     setIsEdit(false);
@@ -475,6 +483,46 @@ export const BloodCamps = () => {
                             location: { ...formData.location, zipCode: e.target.value },
                           })
                         }
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 mt-3">
+                      <Input
+                        label="Latitude (Optional)"
+                        type="number"
+                        step="any"
+                        value={formData.location.coordinates?.latitude || ''}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            location: { 
+                              ...formData.location, 
+                              coordinates: { 
+                                ...formData.location.coordinates, 
+                                latitude: parseFloat(e.target.value) || 0 
+                              } 
+                            },
+                          })
+                        }
+                        placeholder="e.g. 18.5204"
+                      />
+                      <Input
+                        label="Longitude (Optional)"
+                        type="number"
+                        step="any"
+                        value={formData.location.coordinates?.longitude || ''}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            location: { 
+                              ...formData.location, 
+                              coordinates: { 
+                                ...formData.location.coordinates, 
+                                longitude: parseFloat(e.target.value) || 0 
+                              } 
+                            },
+                          })
+                        }
+                        placeholder="e.g. 73.8567"
                       />
                     </div>
                   </div>

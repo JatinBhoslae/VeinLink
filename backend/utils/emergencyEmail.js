@@ -160,10 +160,10 @@ export const sendEmergencyAlertEmail = async (donor, emergencyRequest) => {
           <tr>
             <td style="background-color:#0f172a;padding:40px;text-align:center;border-top:1px solid rgba(255,255,255,0.05);">
               <p style="margin:0 0 12px;font-size:11px;color:#475569;font-weight:800;letter-spacing:3px;text-transform:uppercase;">
-                VIENLINK EMERGENCY NETWORK // TACTICAL PULSE
+                VEIN LINK EMERGENCY NETWORK // TACTICAL PULSE
               </p>
               <p style="margin:0;font-size:10px;color:#334155;">
-                &copy; ${new Date().getFullYear()} VienLink. This signal is an encrypted priority mobilization link.
+                &copy; ${new Date().getFullYear()} Vein Link. This signal is an encrypted priority mobilization link.
               </p>
             </td>
           </tr>
@@ -190,7 +190,7 @@ SITREP: ${notes || 'Immediate assistance required.'}
 
 You have been identified as the closest compatible asset. Mobilize immediately.
 
-— VienLink Emergency Network`;
+— Vein Link Emergency Network`;
 
     try {
         const info = await transport.sendMail({
@@ -299,10 +299,10 @@ export const sendDonorAcceptedEmail = async (patientEmail, patientName, donor, e
           <tr>
             <td style="background-color:#f3f4f6;padding:20px 40px;text-align:center;border-top:1px solid #e5e7eb;">
               <p style="margin:0 0 4px;font-size:12px;color:#9ca3af;">
-                This is an automated notification from VienLink Blood Bank Management System.
+                This is an automated notification from Vein Link Blood Bank Management System.
               </p>
               <p style="margin:0;font-size:12px;color:#9ca3af;">
-                &copy; ${new Date().getFullYear()} VienLink. All rights reserved.
+                &copy; ${new Date().getFullYear()} Vein Link. All rights reserved.
               </p>
             </td>
           </tr>
@@ -318,8 +318,8 @@ export const sendDonorAcceptedEmail = async (patientEmail, patientName, donor, e
         const info = await transport.sendMail({
             from,
             to: patientEmail,
-            subject: `✅ Donor Found for ${emergencyRequest.bloodGroup} Blood — VienLink Emergency`,
-            text: `Dear ${patientName},\n\nA donor has accepted your emergency request for ${emergencyRequest.bloodGroup} blood.\n\nDonor: ${donorName}\nPhone: ${donor.phone || 'N/A'}\nEmail: ${donor.email || 'N/A'}\nBlood Group: ${donor.bloodGroup}\n\nPlease contact the donor as soon as possible.\n\n— VienLink`,
+            subject: `✅ Donor Found for ${emergencyRequest.bloodGroup} Blood — Vein Link Emergency`,
+            text: `Dear ${patientName},\n\nA donor has accepted your emergency request for ${emergencyRequest.bloodGroup} blood.\n\nDonor: ${donorName}\nPhone: ${donor.phone || 'N/A'}\nEmail: ${donor.email || 'N/A'}\nBlood Group: ${donor.bloodGroup}\n\nPlease contact the donor as soon as possible.\n\n— Vein Link`,
             html: htmlContent,
         });
 

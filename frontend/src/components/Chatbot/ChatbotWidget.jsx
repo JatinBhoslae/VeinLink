@@ -8,7 +8,7 @@ export const ChatbotWidget = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: 'Hello! I\'m the VienLink assistant. How can I help you today?',
+      text: 'Hello! I\'m the Vein Link assistant. How can I help you today?',
       sender: 'bot',
       timestamp: new Date(),
     },
@@ -78,7 +78,7 @@ export const ChatbotWidget = () => {
           <div className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white p-4 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center gap-2">
               <MessageCircle size={20} />
-              <h3 className="font-semibold">Vien Link Assistant</h3>
+              <h3 className="font-semibold">Vein Link Assistant</h3>
             </div>
             <button
               onClick={() => setIsOpen(false)}

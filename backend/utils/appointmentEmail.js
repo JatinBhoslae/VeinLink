@@ -33,14 +33,19 @@ export const sendAppointmentBookingEmail = async (user, appointment, details) =>
     console.log(`📡 Preparing Mission Briefing for ${user.email} at ${details.hospitalName}`);
 
     const { hospitalName, hospitalAddress, latitude, longitude, timeSlot } = details;
-    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+    
+    // Improved Google Maps URL: Use coordinates if available, otherwise search by address
+    let googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hospitalAddress)}`;
+    if (latitude && longitude && latitude !== 0 && longitude !== 0) {
+        googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+    }
     
     // Generate QR Code for the appointment
     const qrData = JSON.stringify({
         id: user._id,
         appointmentId: appointment._id,
-        type: 'VienLink-Mission',
-        platform: 'VienLink'
+        type: 'Vein Link-Mission',
+        platform: 'Vein Link'
     });
     
     const qrImageBuffer = await QRCode.toBuffer(qrData, {
@@ -86,7 +91,7 @@ export const sendAppointmentBookingEmail = async (user, appointment, details) =>
 
             <div style="text-align: center; margin: 40px 0;">
                 <h3 style="color: #e11d48; margin-bottom: 5px; font-weight: 900; text-transform: uppercase; font-size: 14px;">Dossier Pass (Present on Arrival)</h3>
-                <img src="cid:appointment-qr" alt="VienLink QR" style="width: 200px; height: 200px; border: 10px solid #f8fafc; border-radius: 24px;" />
+                <img src="cid:appointment-qr" alt="Vein Link QR" style="width: 200px; height: 200px; border: 10px solid #f8fafc; border-radius: 24px;" />
             </div>
 
             <div style="margin-top: 40px; border-top: 2px solid #f1f5f9; pt: 30px;">
@@ -124,7 +129,7 @@ export const sendAppointmentBookingEmail = async (user, appointment, details) =>
         </div>
 
         <div style="background-color: #f8fafc; padding: 30px; text-align: center; font-size: 12px; color: #94a3b8;">
-            <p style="margin: 0; font-weight: 700;">VienLink — Pulse of Humanity</p>
+            <p style="margin: 0; font-weight: 700;">Vein Link — Pulse of Humanity</p>
             <p style="margin: 5px 0 0 0;">Sector Intelligence Unit • Protocol AlphaV</p>
         </div>
     </div>
@@ -180,7 +185,7 @@ export const sendAppointmentCompletionEmail = async (user, appointment, details)
         </div>
 
         <div style="background-color: #f8fafc; padding: 30px; text-align: center;">
-             <p style="margin: 0; font-weight: 900; color: #e11d48; font-size: 14px; text-transform: uppercase; letter-spacing: 0.2em;">VienLink — Pulse of Humanity</p>
+             <p style="margin: 0; font-weight: 900; color: #e11d48; font-size: 14px; text-transform: uppercase; letter-spacing: 0.2em;">Vein Link — Pulse of Humanity</p>
         </div>
     </div>
     `;

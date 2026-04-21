@@ -17,7 +17,7 @@ const checkAdmin = async () => {
     console.log('✅ MongoDB Connected\n');
 
     // Check if super admin exists
-    const admin = await User.findOne({ email: 'admin@vienlink.com' });
+    const admin = await User.findOne({ email: 'admin@veinlink.com' });
     
     if (!admin) {
       console.log('❌ Super Admin NOT FOUND');

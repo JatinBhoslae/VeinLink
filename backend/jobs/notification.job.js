@@ -13,48 +13,45 @@ const runEligibilityCheck = async () => {
     
     try {
         const milestones = [
-            { days: 0, title: 'MISSION READY: Authorization Granted', subject: '[URGENT] Mission Readiness Authorized', message: 'Tactical Status: ELIGIBLE. You are officially authorized for mobilization! The sector needs your life-saving contribution today. Check the HUD for active missions.' },
-            { days: 1, title: 'T-Minus 24h: Readiness Pulse', subject: 'T-Minus 24h: Mission Readiness Window', message: 'Infiltration Window: 1 Day. Your regeneration cycle is 99% complete. Finalize hydration protocol and rest for peak deployment tomorrow.' },
-            { days: 2, title: 'T-Minus 48h: Bio-Regen Pulse', subject: 'T-Minus 48h: Regeneration Synchronization', message: 'Tactical Alert: Your eligibility window opens in 2 days. Bio-telemetry reveals stable recovery. Optimal mission window approaching.' },
-            { days: 3, title: 'T-Minus 72h: Countdown Initiated', subject: 'T-Minus 72h: Deployment Countdown', message: 'Strategic Alert: Your 3-day countdown to eligibility has begun. Stay mission-focused, operative.' }
+            { days: 0, type: 'eligibility_ready', subject: '[URGENT] Mission Readiness Authorized', message: 'Tactical Status: ELIGIBLE. Your regeneration cycle is complete. You are officially authorized for mobilization! The sector needs your life-saving contribution today.' },
+            { days: 1, type: 'eligibility_countdown', subject: 'T-Minus 24h: Mission Readiness Window', message: 'Infiltration Window: 1 Day. Your regeneration cycle is 99% complete. Finalize hydration protocol and rest for peak deployment tomorrow.' },
+            { days: 2, type: 'eligibility_countdown', subject: 'T-Minus 48h: Bio-Regen Pulse', message: 'Tactical Alert: Your eligibility window opens in 2 days. Bio-telemetry reveals stable recovery. Optimal mission window approaching.' },
+            { days: 3, type: 'eligibility_countdown', subject: 'T-Minus 72h: Countdown Initiated', message: 'Strategic Alert: Your 3-day countdown to eligibility has begun. Stay mission-focused, operative.' }
         ];
 
+        const today = startOfDay(new Date());
+
         for (const milestone of milestones) {
-            const targetDate = addDays(new Date(), milestone.days);
+            const targetDate = addDays(today, milestone.days);
             const start = startOfDay(targetDate);
             const end = endOfDay(targetDate);
 
-            console.log(`📡 [CRON] Sector Pulse [T+${milestone.days}]: Scanning window ${start.toISOString()} to ${end.toISOString()}`);
+            console.log(`📡 [CRON] Sector Pulse [T+${milestone.days}]: Scanning targets for ${start.toDateString()}`);
 
-            // Find users whose nextEligibleDate falls in this window
             const users = await PublicUser.find({
                 nextEligibleDate: { $gte: start, $lte: end },
                 isActive: true
             });
 
-            console.log(`📡 [CRON] Sector [T+${milestone.days}]: Identified ${users.length} operatives.`);
-
             for (const user of users) {
-                // Tactical De-duplication: Check if this operative already received this pulse today
+                // Check if already notified for THIS specific milestone in the last 24 hours
                 const alreadyNotified = await NotificationLog.findOne({
                     userId: user._id,
-                    type: milestone.days === 0 ? 'eligibility' : 'reminder',
-                    createdAt: { $gte: startOfDay(new Date()) }
+                    type: milestone.type,
+                    'metadata.milestoneDays': milestone.days,
+                    createdAt: { $gte: today }
                 });
 
-                if (alreadyNotified) {
-                    console.log(`📡 [CRON] Operative ${user.email} already has a logged signal for today. Skipping.`);
-                    continue;
-                }
+                if (alreadyNotified) continue;
 
-                // Force email for these milestones if user hasn't explicitly disabled it
                 await donorNotificationService.sendNotification(user, {
                     title: milestone.subject,
                     message: milestone.message,
-                    type: milestone.days === 0 ? 'eligibility' : 'reminder',
+                    type: milestone.type,
                     metadata: { milestoneDays: milestone.days }
                 });
-                console.log(`✅ [CRON] Signal Dispatched to Operative ${user.email} [T+${milestone.days}]`);
+                
+                console.log(`✅ [CRON] Signal Dispatched: ${user.email} -> T-${milestone.days} days`);
             }
         }
     } catch (err) {

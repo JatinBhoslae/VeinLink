@@ -1,6 +1,6 @@
-# 🖥️ VienLink Backend - Strategic Command Center
+# 🖥️ Vein Link Backend - Strategic Command Center
 
-This is the central engine of the VienLink mobilization system. It handles real-time socket synchronization, geospatial tracking, and the secure biometric verification core.
+This is the central engine of the Vein Link mobilization system. It handles real-time socket synchronization, geospatial tracking, and the secure biometric verification core.
 
 **🛰️ Live Operational Signal:** [https://veinlink.onrender.com](https://veinlink.onrender.com)
 
@@ -55,7 +55,7 @@ After running the seed script, you can access the Command Center using these def
 
 | Security Level | Email | Password |
 | :--- | :--- | :--- |
-| **Super Admin** | `admin@vienlink.com` | `admin123` |
+| **Super Admin** | `admin@veinlink.com` | `admin123` |
 
 ---
 
@@ -83,4 +83,4 @@ The backend runs several background cron jobs to maintain the sector:
 
 ---
 
-*VienLink — Pulse of Humanity.*
+*Vein Link — Pulse of Humanity.*

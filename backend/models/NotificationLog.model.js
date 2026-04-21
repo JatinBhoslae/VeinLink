@@ -10,7 +10,7 @@ const notificationLogSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['eligibility', 'reminder', 'emergency', 'system'],
+      enum: ['eligibility', 'eligibility_countdown', 'reminder', 'emergency', 'system'],
       required: true,
     },
     channel: {

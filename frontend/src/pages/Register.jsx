@@ -167,7 +167,7 @@ export const Register = () => {
               <Droplet className="text-white" size={32} />
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">Register Your Hospital</h1>
-            <p className="text-gray-200">Join Vien Link to manage your blood bank efficiently</p>
+            <p className="text-gray-200">Join Vein Link to manage your blood bank efficiently</p>
           </div>
 
           <div className="rounded-xl bg-transparent backdrop-blur-xl border border-white/10 shadow-xl p-6">

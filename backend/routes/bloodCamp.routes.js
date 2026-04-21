@@ -6,6 +6,7 @@ import BloodUnit from '../models/BloodUnit.model.js';
 import Hospital from '../models/Hospital.model.js';
 import { protect, authorize } from '../middleware/auth.middleware.js';
 import { logAction } from '../utils/auditLogger.js';
+import { sendAppointmentBookingEmail } from '../utils/appointmentEmail.js';
 
 const router = express.Router();
 
@@ -277,6 +278,25 @@ router.post(
 
       camp.totalRegistrations += 1;
       await camp.save();
+
+      // Send confirmation email (async)
+      const userForEmail = donorId 
+        ? await Donor.findById(donorId)
+        : { firstName, lastName, email };
+
+      if (userForEmail && userForEmail.email) {
+        // Create a mock appointment object since the utility expects one
+        const mockAppointment = { _id: camp._id, createdAt: new Date() };
+        
+        sendAppointmentBookingEmail(userForEmail, mockAppointment, {
+          hospitalName: camp.name,
+          hospitalAddress: camp.location.address,
+          latitude: camp.location.coordinates?.latitude || 0,
+          longitude: camp.location.coordinates?.longitude || 0,
+          timeSlot: `${new Date(camp.startDate).toDateString()} ${timeSlot.startTime}`,
+          type: 'camp'
+        }).catch(err => console.error('❌ Camp registration email error:', err));
+      }
 
       res.json({
         success: true,

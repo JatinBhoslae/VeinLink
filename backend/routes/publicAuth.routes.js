@@ -40,16 +40,13 @@ router.post(
 
       const token = generateToken(user._id);
 
+      const userData = user.toObject();
+      delete userData.password;
+
       res.status(201).json({
         success: true,
         token,
-        user: {
-          id: user._id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          location: user.location,
-        },
+        user: userData,
       });
     } catch (error) {
       next(error);
@@ -86,14 +83,14 @@ router.post('/forgot-password', [body('email').isEmail().normalizeEmail()], asyn
         message: `Your verification code for password reset is: ${code}. It expires in 30 minutes.`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
-            <h2 style="color: #d32f2f; text-align: center;">VienLink Verification Code</h2>
+            <h2 style="color: #d32f2f; text-align: center;">Vein Link Verification Code</h2>
             <p>Hello ${user.firstName},</p>
             <p>You requested to reset your password. Please use the following verification code:</p>
             <div style="background-color: #f5f5f5; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 5px; border-radius: 5px; margin: 20px 0;">
               ${code}
             </div>
             <p>This code is valid for 30 minutes. If you did not request this, please ignore this email.</p>
-            <p style="color: #757575; font-size: 12px; margin-top: 30px; text-align: center;">&copy; 2026 VienLink Blood Management. All rights reserved.</p>
+            <p style="color: #757575; font-size: 12px; margin-top: 30px; text-align: center;">&copy; 2026 Vein Link Blood Management. All rights reserved.</p>
           </div>
         `,
       });
@@ -158,31 +155,39 @@ router.post(
       }
 
       const { email, password } = req.body;
+      console.log(`📡 [AUTH-LOG] Login attempt for: ${email}`);
 
       const user = await PublicUser.findOne({ email });
-      if (!user || !(await user.comparePassword(password))) {
+      if (!user) {
+        console.log(`❌ [AUTH-FAIL] User not found: ${email}`);
+        return res.status(401).json({ success: false, message: 'Invalid credentials' });
+      }
+
+      const isMatch = await user.comparePassword(password);
+      if (!isMatch) {
+        console.log(`❌ [AUTH-FAIL] Incorrect password for: ${email}`);
         return res.status(401).json({ success: false, message: 'Invalid credentials' });
       }
 
       if (!user.isActive) {
+        console.log(`❌ [AUTH-FAIL] Account inactive: ${email}`);
         return res.status(401).json({ success: false, message: 'Account is inactive' });
       }
+      
+      console.log(`✅ [AUTH-SUCCESS] Logged in: ${email}`);
 
       user.lastLogin = new Date();
       await user.save();
 
       const token = generateToken(user._id);
 
+      const userData = user.toObject();
+      delete userData.password;
+
       res.json({
         success: true,
         token,
-        user: {
-          id: user._id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          location: user.location,
-        },
+        user: userData,
       });
     } catch (error) {
       next(error);
@@ -215,7 +220,8 @@ router.put('/profile', protectPublic, async (req, res, next) => {
     ];
 
     updatable.forEach((field) => {
-      if (req.body[field] !== undefined) {
+      // Tactical Validation: Skip undefined or empty string values that would violate schema constraints
+      if (req.body[field] !== undefined && req.body[field] !== '') {
         if (field === 'preferences') {
            updateData.preferences = { ...req.publicUser.preferences, ...req.body.preferences };
         } else if (field === 'pincode' || field === 'pinCode') {

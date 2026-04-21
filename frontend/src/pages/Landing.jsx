@@ -156,7 +156,7 @@ export const Landing = () => {
               <Droplet className="text-white" size={40} />
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6" style={{ color: '#FFFFFF' }}>
-              Vien Link
+              Vein Link
             </h1>
             <p className="text-2xl md:text-3xl mb-4 font-light" style={{ color: '#F1F5F9' }}>
               Blood Bank Management System
@@ -279,10 +279,10 @@ export const Landing = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                Why Choose Vien Link?
+                Why Choose Vein Link?
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                Built with modern technology and best practices, Vien Link provides a seamless
+                Built with modern technology and best practices, Vein Link provides a seamless
                 experience for managing blood banks efficiently.
               </p>
               <div className="space-y-4">
@@ -320,7 +320,7 @@ export const Landing = () => {
               Ready to Transform Your Blood Bank Management?
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Join hospitals, donors and recipients already using Vien Link to streamline their operations and save lives.
+              Join hospitals, donors and recipients already using Vein Link to streamline their operations and save lives.
             </p>
             <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
               <Link to="/register">
@@ -355,10 +355,10 @@ export const Landing = () => {
           <div className="text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Droplet className="text-primary-500" size={24} />
-              <span className="text-xl font-bold text-white">Vien Link</span>
+              <span className="text-xl font-bold text-white">Vein Link</span>
             </div>
             <p className="mb-4">Blood Bank Management System</p>
-            <p className="text-sm">© 2025 Vien Link. All rights reserved.</p>
+            <p className="text-sm">© 2025 Vein Link. All rights reserved.</p>
           </div>
         </div>
       </footer>

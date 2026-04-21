@@ -145,14 +145,14 @@ router.post('/forgot-password', [body('email').isEmail().normalizeEmail()], asyn
         message: `Your verification code for password reset is: ${code}. It expires in 15 minutes.`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
-            <h2 style="color: #d32f2f; text-align: center;">VienLink Verification Code</h2>
+            <h2 style="color: #d32f2f; text-align: center;">Vein Link Verification Code</h2>
             <p>Hello ${user.firstName},</p>
             <p>You requested to reset your password. Please use the following verification code:</p>
             <div style="background-color: #f5f5f5; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 5px; border-radius: 5px; margin: 20px 0;">
               ${code}
             </div>
             <p>This code is valid for 15 minutes. If you did not request this, please ignore this email.</p>
-            <p style="color: #757575; font-size: 12px; margin-top: 30px; text-align: center;">&copy; 2026 VienLink Blood Management. All rights reserved.</p>
+            <p style="color: #757575; font-size: 12px; margin-top: 30px; text-align: center;">&copy; 2026 Vein Link Blood Management. All rights reserved.</p>
           </div>
         `,
       });
@@ -407,14 +407,14 @@ router.post(
           message: `Your security verification code is: ${code}. It expires in 15 minutes.`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
-              <h2 style="color: #d32f2f; text-align: center;">VienLink Security Verification</h2>
+              <h2 style="color: #d32f2f; text-align: center;">Vein Link Security Verification</h2>
               <p>Hello ${user.firstName},</p>
               <p>To update your password, please use the following security verification code:</p>
               <div style="background-color: #f5f5f5; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 5px; border-radius: 5px; margin: 20px 0;">
                 ${code}
               </div>
               <p>This code is valid for 15 minutes. If you did not request this, please ensure your account is secure.</p>
-              <p style="color: #757575; font-size: 12px; margin-top: 30px; text-align: center;">&copy; 2026 VienLink Blood Management. All rights reserved.</p>
+              <p style="color: #757575; font-size: 12px; margin-top: 30px; text-align: center;">&copy; 2026 Vein Link Blood Management. All rights reserved.</p>
             </div>
           `,
         });
@@ -505,14 +505,14 @@ router.post('/resend-verification-code', protect, async (req, res, next) => {
         message: `Your new verification code is: ${code}. It expires in 15 minutes.`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
-            <h2 style="color: #0284c7; text-align: center;">VienLink New Code</h2>
+            <h2 style="color: #0284c7; text-align: center;">Vein Link New Code</h2>
             <p>Hello ${user.firstName},</p>
             <p>As requested, here is your new verification code:</p>
             <div style="background-color: #f0f9ff; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 5px; border-radius: 5px; margin: 20px 0;">
               ${code}
             </div>
             <p>This code is valid for 15 minutes.</p>
-            <p style="color: #757575; font-size: 12px; margin-top: 30px; text-align: center;">&copy; 2026 VienLink Blood Management. All rights reserved.</p>
+            <p style="color: #757575; font-size: 12px; margin-top: 30px; text-align: center;">&copy; 2026 Vein Link Blood Management. All rights reserved.</p>
           </div>
         `,
       });

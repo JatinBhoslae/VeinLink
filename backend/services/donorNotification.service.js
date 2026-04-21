@@ -82,7 +82,7 @@ class DonorNotificationService {
             <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; padding: 0; border: 1px solid #f1f5f9; border-radius: 24px; overflow: hidden; background-color: #ffffff;">
                 <div style="background-color: #e11d48; padding: 40px 20px; text-align: center; color: white;">
                     <h1 style="margin: 0; font-size: 24px; font-weight: 900; letter-spacing: -0.05em; text-transform: uppercase;">Tactical Briefing</h1>
-                    <p style="margin: 10px 0 0 0; opacity: 0.9; font-weight: 600; font-size: 12px; letter-spacing: 0.2em;">VIENLINK PROTOCOL ALPHA</p>
+                    <p style="margin: 10px 0 0 0; opacity: 0.9; font-weight: 600; font-size: 12px; letter-spacing: 0.2em;">VEIN LINK PROTOCOL ALPHA</p>
                 </div>
 
                 <div style="padding: 40px 30px;">
@@ -100,14 +100,14 @@ class DonorNotificationService {
                 </div>
 
                 <div style="background-color: #f8fafc; padding: 30px; text-align: center; font-size: 11px; color: #94a3b8;">
-                    <p style="margin: 0; font-weight: 700; color: #e11d48; text-transform: uppercase;">VienLink — Pulse of Humanity</p>
+                    <p style="margin: 0; font-weight: 700; color: #e11d48; text-transform: uppercase;">Vein Link — Pulse of Humanity</p>
                     <p style="margin: 5px 0 0 0;">Sector Intelligence Unit • Bio-Regen Monitor</p>
                 </div>
             </div>
         `;
 
         return transporter.sendMail({
-            from: `"${process.env.FROM_NAME || 'VienLink'}" <${process.env.FROM_EMAIL || process.env.SMTP_USER}>`,
+            from: `"${process.env.FROM_NAME || 'Vein Link'}" <${process.env.FROM_EMAIL || process.env.SMTP_USER}>`,
             to,
             subject,
             html

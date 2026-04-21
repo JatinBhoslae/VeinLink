@@ -59,7 +59,7 @@ router.post('/', protect, authorize('hospital_admin', 'staff', 'super_admin'), a
                 'emergencyStatus.initiatedAt': new Date()
             }
         }, { new: true });
-        const hospitalName = hospital?.name || 'VienLink Hospital';
+        const hospitalName = hospital?.name || 'Vein Link Hospital';
         const hospitalAddress = hospital?.address 
             ? `${hospital.address.street}, ${hospital.address.city}, ${hospital.address.zipCode}`
             : 'Check App for Location';

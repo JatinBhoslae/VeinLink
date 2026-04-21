@@ -54,7 +54,7 @@ export const PublicCamps = () => {
       const { default: html2canvas } = await import('html2canvas');
       const canvas = await html2canvas(qrElement, { backgroundColor: '#ffffff', scale: 2 });
       const link = document.createElement('a');
-      link.download = `VienLink-Mission-Sig.png`;
+      link.download = `Vein Link-Mission-Sig.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
     } catch {
@@ -190,10 +190,25 @@ export const PublicCamps = () => {
                                 <div className="p-2 bg-slate-50 dark:bg-slate-700 rounded-xl">
                                     <MapPin size={18} />
                                 </div>
-                                <div className="truncate">
+                                <div className="truncate flex-1">
                                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Sector Origin</p>
                                     <p className="font-bold text-sm leading-tight text-slate-900 dark:text-slate-300 truncate">{camp.location?.address}, {camp.location?.city}</p>
                                 </div>
+                                <button 
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        const { latitude, longitude, address } = camp.location || {};
+                                        if (latitude && longitude && latitude !== 0 && longitude !== 0) {
+                                            window.open(`https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`, '_blank');
+                                        } else {
+                                            window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank');
+                                        }
+                                    }}
+                                    className="p-2 bg-slate-900 text-white rounded-xl hover:bg-primary-600 transition-colors shadow-lg"
+                                    title="Navigate to Sector"
+                                >
+                                    <Navigation size={14} />
+                                </button>
                             </div>
                             <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
                                 <div className="p-2 bg-slate-50 dark:bg-slate-700 rounded-xl">

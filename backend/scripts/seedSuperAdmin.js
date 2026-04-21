@@ -27,7 +27,7 @@ const seedSuperAdmin = async () => {
 
     // Create super admin
     const superAdmin = await User.create({
-      email: 'admin@vienlink.com',
+      email: 'admin@veinlink.com',
       password: 'admin123', // Default password - change after first login
       firstName: 'Super',
       lastName: 'Admin',

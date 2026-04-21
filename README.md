@@ -1,4 +1,4 @@
-# 🏥 VienLink - Strategic Blood Mobilization System
+# 🏥 Vein Link - Strategic Blood Mobilization System
 
 ![Status](https://img.shields.io/badge/Status-Tactical_Alpha-red)
 ![RealTime](https://img.shields.io/badge/RealTime-Active-emerald)
@@ -6,14 +6,14 @@
 
 > **"Pulse of Humanity" — Bridging the gap between life and time with real-time tactical synchronization.**
 
-VienLink is a next-generation Strategic Blood Mobilization System designed to neutralize blood shortages through high-frequency geospatial tracking, tactical identity verification, and AI-driven predictive logistics. It transforms traditional blood bank management into a real-time emergency response engine.
+Vein Link is a next-generation Strategic Blood Mobilization System designed to neutralize blood shortages through high-frequency geospatial tracking, tactical identity verification, and AI-driven predictive logistics. It transforms traditional blood bank management into a real-time emergency response engine.
 
 ---
 
 ## 🔗 Command Center
 - **🚀 Live Tactical HUD:** [https://veinlink.vercel.app](https://veinlink.vercel.app)
 - **🛰️ Live Strategic API:** [https://veinlink.onrender.com](https://veinlink.onrender.com)
-- **📂 GitHub Repository:** [github.com/JatinBhoslae/VienLink](https://github.com/JatinBhoslae/VienLink)
+- **📂 GitHub Repository:** [github.com/JatinBhoslae/VeinLink](https://github.com/JatinBhoslae/VeinLink)
 
 ---
 
@@ -88,8 +88,8 @@ Standardized management for high-volume blood banks.
 
 ### 1. Reacquire Source
 ```bash
-git clone https://github.com/JatinBhoslae/VienLink.git
-cd VienLink
+git clone https://github.com/JatinBhoslae/VeinLink.git
+cd Vein Link
 ```
 
 ### 2. Service Initialization
@@ -131,5 +131,5 @@ npm run dev
 
 ---
 
-*VienLink — Synchronizing the heartbeat of humanity.*
+*Vein Link — Synchronizing the heartbeat of humanity.*
 # VeinLink

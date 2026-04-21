@@ -105,7 +105,7 @@ export const DonorLayout = ({ children }) => {
                                 V
                             </div>
                             <div>
-                                <h1 className="text-2xl font-black bg-gradient-to-r from-primary-600 to-rose-500 bg-clip-text text-transparent tracking-tighter">Vien Link</h1>
+                                <h1 className="text-2xl font-black bg-gradient-to-r from-primary-600 to-rose-500 bg-clip-text text-transparent tracking-tighter">Vein Link</h1>
                                 <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.3em] leading-none">Tactical Hub</p>
                             </div>
                         </div>

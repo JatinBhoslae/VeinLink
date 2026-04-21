@@ -250,14 +250,24 @@ export const DonorDashboard = () => {
         toast.loading('Exporting Medal...', { id: 'cert' });
         try {
             const el = document.getElementById(`certificate-${donation._id}`);
-            const canvas = await html2canvas(el, { scale: 2 });
+            if (!el) {
+                toast.error('Tactical Record not found', { id: 'cert' });
+                return;
+            }
+            const canvas = await html2canvas(el, { 
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                logging: false
+            });
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('l', 'px', [800, 600]);
             pdf.addImage(imgData, 'PNG', 0, 0, 800, 600);
-            pdf.save(`VienLink_Honor_${donation._id}.pdf`);
+            pdf.save(`VeinLink_Honor_${donation._id}.pdf`);
             toast.success('Medal Exported', { id: 'cert' });
         } catch (err) {
-            toast.error('Export failed', { id: 'cert' });
+            console.error('Cert export failure:', err);
+            toast.error('Export failed: Signal Interrupted', { id: 'cert' });
         } finally {
             setGeneratingCert(null);
         }
@@ -274,7 +284,7 @@ export const DonorDashboard = () => {
                 logging: false
             });
             const link = document.createElement('a');
-            link.download = `VienLink_ID_${user?.firstName || 'Operative'}.png`;
+            link.download = `VeinLink_ID_${user?.firstName || 'Operative'}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
             toast.success('Identity Signature Downloaded');
@@ -323,7 +333,7 @@ export const DonorDashboard = () => {
                                         <h2 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none">
                                             {user?.firstName} <span className="text-primary-600">{user?.lastName}</span>
                                         </h2>
-                                        <p className="text-slate-400 font-black uppercase text-[10px] tracking-[0.5em] mt-2">VienLink Verified Personnel</p>
+                                        <p className="text-slate-400 font-black uppercase text-[10px] tracking-[0.5em] mt-2">Vein Link Verified Personnel</p>
                                     </div>
 
                                     <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
@@ -938,15 +948,38 @@ export const DonorDashboard = () => {
                                         d.status?.toLowerCase().includes(term)
                                     );
                                 }).map((d, i) => (
-                                    <div key={d._id} className="bg-white dark:bg-gray-800 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-xl transition-all group">
+                                    <div key={d._id} className="bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-xl transition-all group relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 py-2 px-6 bg-emerald-500/10 text-emerald-600 text-[8px] font-black uppercase tracking-widest border-l border-b border-emerald-500/10">
+                                            Mission Success
+                                        </div>
                                         <div className="flex items-center gap-6">
-                                            <div className="w-16 h-16 bg-slate-50 dark:bg-slate-900 rounded-[1.5rem] flex items-center justify-center font-black text-2xl text-slate-900 dark:text-white border border-slate-100 dark:border-slate-700">#{data.donationHistory.length - i}</div>
-                                            <div>
-                                                <h3 className="text-xl font-bold uppercase">{d.hospital}</h3>
-                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{format(new Date(d.date), 'MMMM dd, yyyy')}</p>
+                                            <div className="w-16 h-16 bg-slate-900 dark:bg-primary-600 text-white rounded-[1.8rem] flex flex-col items-center justify-center font-black shadow-lg">
+                                                <span className="text-[10px] opacity-60">MSN</span>
+                                                <span className="text-xl leading-tight">#{data.donationHistory.length - i}</span>
+                                            </div>
+                                            <div className="space-y-1">
+                                                <h3 className="text-xl font-bold uppercase tracking-tight text-slate-800 dark:text-white">{d.hospital || d.camp}</h3>
+                                                <div className="flex items-center gap-4">
+                                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+                                                        <Calendar size={12} className="text-primary-500" />
+                                                        {format(new Date(d.date), 'MMMM dd, yyyy')}
+                                                    </p>
+                                                    <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1.5">
+                                                        <Zap size={12} />
+                                                        +{d.rewardPoints} XP
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <button onClick={() => downloadCertificate(d)} className="px-10 py-4 bg-slate-900 dark:bg-white dark:text-black text-white rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-lg">Extract Record</button>
+                                        <div className="flex items-center gap-3">
+                                            <button 
+                                                onClick={() => downloadCertificate(d)} 
+                                                className="px-8 h-14 bg-slate-900 dark:bg-white dark:text-black text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-all shadow-lg flex items-center gap-3 active:scale-95"
+                                            >
+                                                <Download size={14} />
+                                                Extract Record
+                                            </button>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
@@ -1027,21 +1060,85 @@ export const DonorDashboard = () => {
                            </div>
                            <div className="relative z-10 space-y-4">
                                <h4 className="text-white font-black uppercase text-xs tracking-[0.2em]">Privacy Protocol</h4>
-                               <p className="text-slate-400 text-sm leading-relaxed max-w-md">VienLink prioritizes data sovereignty. Your contact signals are only used for mission-critical alerts and are never shared with non-authorized tactical hubs.</p>
+                               <p className="text-slate-400 text-sm leading-relaxed max-w-md">Vein Link prioritizes data sovereignty. Your contact signals are only used for mission-critical alerts and are never shared with non-authorized tactical hubs.</p>
                            </div>
                         </div>
                     </div>
                 )}
             </div>
 
-            <div className="hidden">
+            <div className="opacity-0 pointer-events-none fixed -z-50 top-0 left-0 bg-white">
                  {data?.donationHistory?.map(d => (
-                    <div key={`cert-${d._id}`} id={`certificate-${d._id}`} className="w-[800px] h-[600px] bg-white p-20 border-[20px] border-primary-600/10 flex flex-col items-center justify-center text-black">
-                        <Heart size={64} className="text-primary-600 mb-8" />
-                        <h1 className="text-6xl font-black mb-4">VIENLINK</h1>
-                        <h2 className="text-2xl font-bold uppercase tracking-widest mb-10">Record of Service</h2>
-                        <p className="text-4xl font-black uppercase mb-10">{user?.firstName} {user?.lastName}</p>
-                        <p className="text-sm font-bold uppercase">{d.hospital} | {format(new Date(d.date), 'dd.MM.yyyy')}</p>
+                    <div key={`cert-${d._id}`} id={`certificate-${d._id}`} className="w-[1000px] h-[700px] bg-white p-2 relative overflow-hidden font-sans">
+                        {/* Elegant Border Framework */}
+                        <div className="w-full h-full border-[30px] border-slate-900 p-1 flex flex-col items-center justify-between">
+                            <div className="w-full h-full border-[2px] border-primary-600/30 p-20 flex flex-col items-center justify-between relative">
+                                
+                                {/* Background Watermark */}
+                                <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+                                    <Heart size={500} strokeWidth={1} />
+                                </div>
+
+                                {/* Header Section */}
+                                <div className="text-center space-y-4 relative z-10">
+                                    <div className="flex items-center justify-center gap-3 mb-6">
+                                        <div className="bg-primary-600 p-3 rounded-2xl">
+                                            <Heart size={32} className="text-white" fill="white" />
+                                        </div>
+                                        <h1 className="text-4xl font-black tracking-tighter text-slate-900">VEIN LINK</h1>
+                                    </div>
+                                    <h2 className="text-sm font-black uppercase tracking-[0.4em] text-primary-600">Certificate of Honor</h2>
+                                    <div className="h-px w-32 bg-primary-600/30 mx-auto mt-4"></div>
+                                </div>
+
+                                {/* Main Citation */}
+                                <div className="text-center space-y-8 relative z-10">
+                                    <p className="text-lg font-medium text-slate-500 italic">This official record hereby recognizes the selfless contribution of</p>
+                                    <h3 className="text-6xl font-black text-slate-900 border-b-4 border-slate-900 inline-block px-12 py-2 uppercase tracking-tighter">{user?.firstName} {user?.lastName}</h3>
+                                    <p className="text-lg font-medium text-slate-600 max-w-2xl leading-relaxed mx-auto">
+                                        For their heroic act of blood donation at our tactical sector. This contribution has directly aided in the preservation of human life and strengthened the Vein Link emergency network.
+                                    </p>
+                                </div>
+
+                                {/* Mission Details Grid */}
+                                <div className="w-full grid grid-cols-3 gap-12 mt-10 relative z-10">
+                                    <div className="text-center space-y-1">
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Sector Location</p>
+                                        <p className="text-sm font-black text-slate-900 uppercase">{d.hospital || d.camp || 'Authorized Hub'}</p>
+                                    </div>
+                                    <div className="text-center space-y-1">
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Mission Date</p>
+                                        <p className="text-sm font-black text-slate-900 uppercase">{format(new Date(d.date), 'dd MMMM yyyy')}</p>
+                                    </div>
+                                    <div className="text-center space-y-1">
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Blood Registry</p>
+                                        <p className="text-xl font-black text-primary-600">{user?.bloodGroup}</p>
+                                    </div>
+                                </div>
+
+                                {/* Footer & Authentication */}
+                                <div className="w-full flex items-end justify-between mt-12 relative z-10">
+                                    <div className="space-y-4">
+                                        <div className="text-center">
+                                            <div className="h-px w-48 bg-slate-400 mb-2"></div>
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Authorized Signature</p>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                                                <BadgeCheck size={16} className="text-emerald-600" />
+                                            </div>
+                                            <p className="text-[8px] font-black uppercase tracking-widest text-emerald-600">Vein Link Verified Deployment</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="text-right space-y-1">
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Certificate Signature ID</p>
+                                        <p className="text-xs font-mono font-bold text-slate-900">VL-SEC-{d._id.toString().slice(-12).toUpperCase()}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -1053,7 +1150,7 @@ export const DonorDashboard = () => {
                             <X size={24} />
                         </button>
                         <div className="text-center space-y-2 mb-8">
-                            <h3 className="text-3xl font-black uppercase">VienLink ID</h3>
+                            <h3 className="text-3xl font-black uppercase">Vein Link ID</h3>
                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Donor Profile QR</p>
                         </div>
                         <div id="donor-qr-container" className="bg-white p-6 rounded-[2.5rem] shadow-inner mb-2 flex items-center justify-center border border-slate-100">

@@ -120,7 +120,7 @@ export const Login = () => {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-600/60 mb-4 shadow-lg backdrop-blur-sm">
               <Droplet className="text-white" size={32} />
             </div>
-            <h1 className="text-3xl font-bold text-white/90 mb-2">Vien Link</h1>
+            <h1 className="text-3xl font-bold text-white/90 mb-2">Vein Link</h1>
             <p className="text-gray-300/70">Blood Bank Management System</p>
           </div>
 

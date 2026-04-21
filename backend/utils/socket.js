@@ -2,6 +2,20 @@ import { Server } from 'socket.io';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.model.js';
 import PublicUser from '../models/PublicUser.model.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const logSocket = (msg) => {
+    const entry = `[${new Date().toISOString()}] 🔌 [SOCKET] ${msg}\n`;
+    try {
+      fs.appendFileSync(path.join(__dirname, '../mission_logs.txt'), entry);
+    } catch (e) {}
+    console.log(`🔌 [SOCKET] ${msg}`);
+};
 
 let io;
 
@@ -48,7 +62,7 @@ export const initializeSocket = (server) => {
 
   // Handle connections
   io.on('connection', (socket) => {
-    console.log(`🔌 User connected: ${socket.user.email} (${socket.userType})`);
+    logSocket(`Operative identified: ${socket.user.email} (${socket.userType})`);
 
     // Join user to their personal room
     socket.join(`user_${socket.user._id}`);

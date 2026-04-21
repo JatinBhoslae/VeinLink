@@ -103,7 +103,7 @@ export const Sidebar = () => {
           {/* Logo */}
           <div className="p-6 border-b border-gray-200 dark:border-gray-700">
             <h1 className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-              Vien Link
+              Vein Link
             </h1>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Blood Bank Management</p>
           </div>

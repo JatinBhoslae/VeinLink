@@ -43,7 +43,7 @@ router.get('/generate', protectPublic, async (req, res, next) => {
             rewardPoints: user.rewardPoints || 0,
             badges: (user.badges || []).length,
             verified: true,
-            platform: 'VienLink',
+            platform: 'Vein Link',
             generatedAt: new Date().toISOString(),
         };
 
