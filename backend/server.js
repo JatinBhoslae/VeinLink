@@ -116,7 +116,7 @@ app.use('/api/public-camps', publicCampsRoutes);
 app.use('/api/public-blood-requests', publicBloodRequestRoutes);
 app.use('/api/audit', auditRoutes);
 app.use('/api/donor-qr', donorQRRoutes);
-app.use('/api/inter-hospital', interHospitalRoutes);
+app.use('/api/inter-hospital-requests', interHospitalRoutes);
 app.use('/api/emergency-broadcast', emergencyRoutes);
 app.use('/api/hospital-slots', hospitalSlotRoutes);
 app.use('/api/public-appointments', publicAppointmentRoutes);
