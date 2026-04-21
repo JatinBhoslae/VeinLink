@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { usePublicAuth } from '../../context/PublicAuthContext';
 import { useSearch } from '../../context/SearchContext';
+import { useTheme } from '../../context/ThemeContext';
 import { 
     LayoutDashboard, 
     Zap, 
@@ -16,12 +17,15 @@ import {
     ChevronDown, 
     User,
     Settings, 
-    ShieldCheck
+    ShieldCheck,
+    Sun,
+    Moon
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const DonorLayout = ({ children }) => {
     const { user, logout } = usePublicAuth();
+    const { darkMode, toggleDarkMode } = useTheme();
     const { searchQuery, setSearchQuery } = useSearch();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -188,8 +192,16 @@ export const DonorLayout = ({ children }) => {
                             </button>
                             <h2 className="font-black uppercase tracking-tighter text-xl">Vien<span className="text-primary-600">Link</span></h2>
                         </div>
-                        <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white font-black text-xs">
-                             {user?.bloodGroup}
+                        <div className="flex items-center gap-3">
+                            <button 
+                                onClick={toggleDarkMode}
+                                className="p-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-all"
+                            >
+                                {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+                            </button>
+                            <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white font-black text-xs">
+                                 {user?.bloodGroup}
+                            </div>
                         </div>
                     </div>
                 </header>
@@ -213,10 +225,17 @@ export const DonorLayout = ({ children }) => {
                                <div id="nav_translate_container" className="h-6 flex items-center"></div>
                           </div>
                           
-                          <button className="p-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl relative transition-all">
-                               <Bell size={24} />
-                               <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-red-600 rounded-full border-[3px] border-white dark:border-slate-900"></span>
-                          </button>
+                          <button 
+                               onClick={toggleDarkMode}
+                               className="p-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-all"
+                           >
+                               {darkMode ? <Sun size={24} /> : <Moon size={24} />}
+                           </button>
+
+                           <button className="p-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl relative transition-all">
+                                <Bell size={24} />
+                                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-red-600 rounded-full border-[3px] border-white dark:border-slate-900"></span>
+                           </button>
 
                           <div className="relative group" ref={dropdownRef}>
                                <button 

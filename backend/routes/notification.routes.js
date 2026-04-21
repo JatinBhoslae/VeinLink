@@ -36,8 +36,41 @@ router.patch('/preferences', protectPublic, async (req, res, next) => {
 });
 
 /**
+ * @route   GET /api/notifications
+ * @desc    Get paginated notification logs for a donor
+ * @access  Private (Donor)
+ */
+router.get('/', protectPublic, async (req, res, next) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 20;
+        const skip = (page - 1) * limit;
+
+        const [notifications, total] = await Promise.all([
+            NotificationLog.find({ userId: req.publicUser._id })
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit),
+            NotificationLog.countDocuments({ userId: req.publicUser._id })
+        ]);
+
+        res.json({
+            success: true,
+            data: notifications,
+            pagination: {
+                total,
+                page,
+                pages: Math.ceil(total / limit)
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
  * @route   GET /api/notifications/logs
- * @desc    Get notification logs for a donor
+ * @desc    Get last 50 notification logs for a donor
  * @access  Private (Donor)
  */
 router.get('/logs', protectPublic, async (req, res, next) => {
