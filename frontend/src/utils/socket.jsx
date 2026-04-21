@@ -27,8 +27,8 @@ class SocketService {
     this.connected = false;
     this.userType = userType;
 
-    let serverUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-    // Tactical Fix: Strip /api suffix to prevent 'Invalid namespace' socket error
+    let serverUrl = import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    // Tactical Fix: Strip /api suffix to prevent 'Invalid namespace' socket error if using API_URL
     serverUrl = serverUrl.replace(/\/api\/?$/, '');
     
     this.socket = io(serverUrl, {
