@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import publicApi from '../lib/publicApi';
 
-const PublicAuthContext = createContext(null);
+export const PublicAuthContext = createContext(null);
 
 export const PublicAuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);

@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
-import { useAuth } from '../context/AuthContext';
-import { usePublicAuth } from '../context/PublicAuthContext';
+import { AuthContext } from '../context/AuthContext';
+import { PublicAuthContext } from '../context/PublicAuthContext';
 
 class SocketService {
   constructor() {
@@ -295,24 +295,11 @@ export const useSocket = () => {
   }
 
   // Safe access to auth contexts with fallbacks
-  let token = null;
-  let publicToken = null;
+  const authContext = useContext(AuthContext);
+  const publicAuthContext = useContext(PublicAuthContext);
   
-  try {
-    const authContext = useAuth();
-    token = authContext?.token;
-  } catch (error) {
-    // Auth context not available (likely in public-only area)
-    console.log('🔌 Auth context not available');
-  }
-  
-  try {
-    const publicAuthContext = usePublicAuth();
-    publicToken = publicAuthContext?.token;
-  } catch (error) {
-    // Public auth context not available (likely in hospital-only area)
-    console.log('🔌 Public auth context not available');
-  }
+  const token = authContext?.token;
+  const publicToken = publicAuthContext?.token;
   
   const [isConnected, setIsConnected] = useState(false);
   const [notifications, setNotifications] = useState([]);
