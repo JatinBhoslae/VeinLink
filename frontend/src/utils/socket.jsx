@@ -368,7 +368,7 @@ export const useSocket = () => {
     setUnreadCount(0);
   };
 
-  const markAsRead = (notificationId) => {
+  const markAsRead = () => {
     setUnreadCount(prev => Math.max(0, prev - 1));
   };
 

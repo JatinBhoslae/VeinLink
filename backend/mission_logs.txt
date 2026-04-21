@@ -1110,3 +1110,5 @@
 [2026-04-21T08:25:43.589Z] ✅ [PATCH] /api/public-auth/location - 200 (22ms)
 [2026-04-21T08:25:49.814Z] ✅ [OPTIONS] /api/public-auth/location - 200 (0ms)
 [2026-04-21T08:25:49.834Z] ✅ [PATCH] /api/public-auth/location - 200 (19ms)
+[2026-04-21T08:26:16.305Z] ✅ [OPTIONS] /api/public-auth/location - 200 (1ms)
+[2026-04-21T08:26:16.343Z] ✅ [PATCH] /api/public-auth/location - 200 (32ms)
