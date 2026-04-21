@@ -1,12 +1,12 @@
 # 🏥 Vein Link - Strategic Blood Mobilization System
 
-![Status](https://img.shields.io/badge/Status-Tactical_Alpha-red)
+![Status](https://img.shields.io/badge/Status-Tactical_Stable-emerald)
 ![RealTime](https://img.shields.io/badge/RealTime-Active-emerald)
 ![License](https://img.shields.io/badge/license-MIT-black)
 
 > **"Pulse of Humanity" — Bridging the gap between life and time with real-time tactical synchronization.**
 
-Vein Link is a next-generation Strategic Blood Mobilization System designed to neutralize blood shortages through high-frequency geospatial tracking, tactical identity verification, and AI-driven predictive logistics. It transforms traditional blood bank management into a real-time emergency response engine.
+Vein Link is a next-generation Strategic Blood Mobilization System designed to neutralize blood shortages through high-frequency geospatial tracking, tactical identity verification, and AI-driven predictive logistics.
 
 ---
 
@@ -21,93 +21,72 @@ Vein Link is a next-generation Strategic Blood Mobilization System designed to n
 
 ### 🚨 1. Emergency Mobilization (Panic Mode Alpha)
 The flagship emergency response engine designed for zero-latency blood procurement.
-*   **Tactical Broadcast:** Hospitals can trigger "Panic Mode" for specific blood groups. This initiates a 5km radius broadcast to all eligible donors.
-*   **Geospatial Heartbeat:** Donors' devices maintain a 3-second heartbeat sync with the backend, allowing the system to target only the nearest available operatives.
-*   **Mobilization Briefing:** Triggered donors receive a "Mission Alert" HUD on their dashboard with distance and critical patient info.
-*   **The Data Bridge:** Upon mission acceptance, a secure bidirectional sync bridges contact details between the donor and requester, enabling instant coordination.
+*   **Tactical Broadcast:** Hospitals can trigger "Panic Mode" for specific blood groups, initiating a 5km radius broadcast.
+*   **Geospatial Heartbeat:** Donors' devices maintain a 3-second heartbeat sync for precision targeting.
+*   **Mission Briefing:** Targeted donors receive a "Mission Alert" HUD with distance and critical patient info.
 
 ### 🛡️ 2. V-ID Tactical Identity HUD
-A secure biometric-style verification system for hospitals and blood hubs.
-*   **Dynamic QR Generation:** Donors carry a V-ID signature containing their blood group, extraction history, and eligibility status.
-*   **Unified Scanner:** A dual-mode scanner (Camera/File Upload) used by hospital staff to verify identities instantly.
-*   **Bio-Telemetry Retrieval:** Scanning a V-ID pulls the donor's full history, including past missions, saved lives count, and earned rewards, directly from the security core.
-*   **Protocol Authorization:** Validates if the donor is within their 90-day recovery window before allowing extraction.
+A secure verification system for hospitals and blood hubs.
+*   **Dynamic QR Generation:** Donors carry a V-ID signature containing blood group, history, and status.
+*   **Bio-Telemetry Retrieval:** Scanning a V-ID pulls the donor's full history and "Tactical Dossier."
+*   **Protocol Authorization:** Validates the 90-day recovery window before allowing extraction.
 
-### 🧠 3. Strategic AI & Analytics
-Data-driven logistics to stay ahead of the supply curve.
-*   **Stock Forecasting:** Analyzes historical extraction and request patterns to predict inventory depletion dates.
-*   **AI Insight HUD:** Displays "Smart Predictions" in the admin dashboard, warning about upcoming shortages of specific blood groups.
-*   **Sector Heatmaps:** Real-time visibility into region-wide blood group distribution and hospital readiness.
+### 🎖️ 3. Honor Medal Extraction Protocol (NEW)
+A high-fidelity recognition system for heroic contributions.
+*   **PDF Extraction:** Operatives can extract "Honor Medals" as high-end PDF certificates directly from their Mission Log.
+-   **Secure Verification:** Each record features a unique **VL-SEC Signature ID** and a holographic-style design for official use.
 
-### 🩸 4. Inventory & Hub Operations
-Standardized management for high-volume blood banks.
-*   **Real-time Stock Tracking:** Live monitoring of every unit from extraction to transfusion.
-*   **Inter-Hub Transfers:** Secure protocol for intra-hospital blood unit mobilization during localized shortages.
-*   **Camp Management:** Scheduling and tracking of public blood drives with automated donor notification.
+### ⏰ 4. Bio-Regen Countdown Engine (NEW)
+Automated synchronization for donor recovery cycles.
+*   **Milestone Alerts:** The system dispatches "Tactical Briefings" via email at T-Minus 3, 2, and 1 days before eligibility.
+*   **Authorization Signal:** A critical alert is sent the moment the 90-day cooldown cycle is neutralized.
+*   **Idempotency Protocol:** Guaranteed single-signal-per-day dispatch for noise reduction.
 
 ---
 
-## 🔄 Operational Workflows (How it works)
+## 🔄 Operational Workflows
 
-### A. The Emergency Mobilization Flow
-1.  **Trigger:** Hospital Admin enables "Panic Mode" for B+ blood via the Dashboard.
-2.  **Triangulation:** The system uses the 3s Location Heartbeat to find all B+ donors within 5km.
-3.  **Alert:** Targeted donors receive a high-priority "Mission Card" on their dashboard via Socket.IO.
-4.  **Authorization:** Donor clicks "Authorize Mission."
-5.  **Synchronization:** The backend bridges the two parties. The donor sees the Patient's map location and phone; the Patient/Hospital sees the donor's ETA and contact details.
-6.  **Navigation:** The donor uses the integrated "Navigate" action to reach the extraction hub.
-
-### B. The V-ID Identity Verification Flow
-1.  **Arrival:** Donor arrives at the hospital for their mission or appointment.
-2.  **Extraction HUD:** Hospital staff opens the "Tactical Identity HUD."
-3.  **Processing:** Staff scans the donor's V-ID (via mobile camera or uploaded screenshot).
-4.  **Validation:** The system parses the protocol signature and retrieves the donor's "Tactical Dossier."
-5.  **Verification:** Staff confirms the identity and clicks "Finalize Mission."
-6.  **Reward:** The donor is instantly credited with Reward Points and their cooldown timer (90 days) begins.
-
-### C. The Inventory Lifecycle
-1.  **Ingestion:** A new unit is extracted and logged with its collection date.
-2.  **Monitoring:** The "Sector Analytics" dashboard tracks the unit's age and blood group.
-3.  **Fulfillment:** When a request is approved, the unit is marked as mobilized.
-4.  **Forecasting:** Every extraction update is fed into the AI engine to refine the 30-day stock prediction.
+### A. The Mission Extraction Flow
+1.  **Completion:** Hospital staff finalizes an extraction mission.
+2.  **Telemetry Sync:** The system logs the "Mission Success" in the donor's dossier.
+3.  **XP Attribution:** The operative is awarded reward points (XP) and points for the public leaderboard.
+4.  **Record Retrieval:** The donor visits their "Mission Log" and uses the **Extract Record** action to generate their official Honor Medal.
 
 ---
 
 ## 🛠️ Tactical Stack
 
-*   **Backend:** Node.js / Express.js / MongoDB (Aggregation Pipelines)
+*   **Backend:** Node.js / Express.js / MongoDB (Geospatial Indexing)
 *   **Frontend:** React.js / Vite / Tailwind-Infused Vanilla CSS
-*   **Real-time Real-time Engine:** Socket.IO for low-latency synchronization
-*   **Location Tracking:** High-frequency navigator.geolocation (3s Heartbeat)
-*   **Security:** JWT Multi-role Authorization (Admin, Staff, Public)
-*   **Mailing:** Tactical Nodemailer templates with QR integration
+*   **Real-time Engine:** Socket.IO (Calibrated for Port 5005)
+*   **PDF Generation:** jsPDF + html2canvas for high-fidelity record extraction
+*   **Mailing:** Automated Nodemailer templates with recovery countdown logic
 
 ---
 
 ## ⚙️ Grid Setup
 
-### 1. Reacquire Source
-```bash
-git clone https://github.com/JatinBhoslae/VeinLink.git
-cd Vein Link
-```
+### 1. Backend Frequency Calibration
+To avoid system interference (specifically macOS AirPlay on Port 5001), the grid is now calibrated to **Port 5005**.
 
-### 2. Service Initialization
-
-**Backend Command Center:**
 ```bash
 cd backend
 npm install
-# Configure .env with tactical credentials
-npm run dev
+# Configure .env:
+PORT=5005
+MONGODB_URI=...
+SMTP_USER=...
 ```
 
-**Frontend Tactical HUD:**
+### 2. Frontend Tactical HUD Calibration
+Ensure the frontend is synchronized with the new backend frequency.
+
 ```bash
 cd frontend
 npm install
-# Ensure VITE_API_URL points to the backend signal
-npm run dev
+# Configure .env:
+VITE_API_URL=http://localhost:5005/api
+VITE_SOCKET_URL=http://localhost:5005
 ```
 
 ---
@@ -117,7 +96,6 @@ npm run dev
 2.  Deploy Feature Branch (`git checkout -b protocol/YourFeature`)
 3.  Commit Tactical Changes (`git commit -m 'Sync: Add YourFeature'`)
 4.  Push to Sector Hub (`git push origin protocol/YourFeature`)
-5.  Initiate Authorization (Pull Request)
 
 ---
 
@@ -132,4 +110,5 @@ npm run dev
 ---
 
 *Vein Link — Synchronizing the heartbeat of humanity.*
+— Synchronizing the heartbeat of humanity.*
 # VeinLink
