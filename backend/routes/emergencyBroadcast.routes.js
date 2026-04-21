@@ -632,74 +632,8 @@ router.post('/:id/cancel', protectPublic, async (req, res) => {
     }
 });
 
-// ============================================================
-// GET /api/emergency-broadcast/my — Get user's emergency requests
-// ============================================================
-router.get('/my', protectPublic, async (req, res) => {
-    try {
-        let requests = await EmergencyRequest.find({ patientId: req.publicUser._id })
-            .populate('donorResponses.donorId', 'firstName lastName phone email bloodGroup')
-            .sort({ createdAt: -1 })
-            .limit(20)
-            .lean();
-
-        // Manually resolve acceptedDonor (polymorphic — could be Donor or PublicUser)
-        for (const req of requests) {
-            if (req.acceptedDonor) {
-                let donorData = await Donor.findById(req.acceptedDonor)
-                    .select('firstName lastName phone email bloodGroup gender city state address location')
-                    .lean();
-                if (!donorData) {
-                    donorData = await PublicUser.findById(req.acceptedDonor)
-                        .select('firstName lastName phone email bloodGroup gender city state address location')
-                        .lean();
-                }
-                req.acceptedDonor = donorData || req.acceptedDonor;
-            }
-        }
-
-        res.json({ success: true, data: requests });
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
-    }
-});
-
-// ============================================================
-// GET /api/emergency-broadcast/:id — Get single request details
-// ============================================================
-router.get('/:id', async (req, res) => {
-    try {
-        let request = await EmergencyRequest.findById(req.params.id)
-            .populate('patientId', 'firstName lastName phone email bloodGroup gender city state address location')
-            .populate('donorResponses.donorId', 'firstName lastName phone email bloodGroup location')
-            .lean();
-
-        if (!request) {
-            return res.status(404).json({ success: false, message: 'Emergency request not found' });
-        }
-
-        // Manually resolve acceptedDonor (polymorphic)
-        if (request.acceptedDonor) {
-            let donorData = await Donor.findById(request.acceptedDonor)
-                .select('firstName lastName phone email bloodGroup gender city state address location')
-                .lean();
-            if (!donorData) {
-                donorData = await PublicUser.findById(request.acceptedDonor)
-                    .select('firstName lastName phone email bloodGroup gender city state address location')
-                    .lean();
-            }
-            request.acceptedDonor = donorData || request.acceptedDonor;
-        }
-
-        res.json({ success: true, data: request });
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
-    }
-});
-
-// ============================================================
-// GET /api/emergency-broadcast/admin/all — Admin view all requests
-// ============================================================
+// @route   GET /api/emergency-broadcast/admin/all — Admin view all requests
+// @access  Private (hospital_admin, staff, super_admin)
 router.get('/admin/all', protect, async (req, res) => {
     try {
         const { status, bloodGroup, page = 1, limit = 20 } = req.query;
@@ -748,6 +682,69 @@ router.get('/admin/all', protect, async (req, res) => {
         });
     } catch (error) {
         console.error('Admin fetch error:', error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// @route   GET /api/emergency-broadcast/my — Get user's emergency requests
+// @access  Public (requester)
+router.get('/my', protectPublic, async (req, res) => {
+    try {
+        let requests = await EmergencyRequest.find({ patientId: req.publicUser._id })
+            .populate('donorResponses.donorId', 'firstName lastName phone email bloodGroup')
+            .sort({ createdAt: -1 })
+            .limit(20)
+            .lean();
+
+        // Manually resolve acceptedDonor (polymorphic — could be Donor or PublicUser)
+        for (const req of requests) {
+            if (req.acceptedDonor) {
+                let donorData = await Donor.findById(req.acceptedDonor)
+                    .select('firstName lastName phone email bloodGroup gender city state address location')
+                    .lean();
+                if (!donorData) {
+                    donorData = await PublicUser.findById(req.acceptedDonor)
+                        .select('firstName lastName phone email bloodGroup gender city state address location')
+                        .lean();
+                }
+                req.acceptedDonor = donorData || req.acceptedDonor;
+            }
+        }
+
+        res.json({ success: true, data: requests });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// @route   GET /api/emergency-broadcast/:id — Get single request details
+// @access  Public
+router.get('/:id', async (req, res) => {
+    try {
+        let request = await EmergencyRequest.findById(req.params.id)
+            .populate('patientId', 'firstName lastName phone email bloodGroup gender city state address location')
+            .populate('donorResponses.donorId', 'firstName lastName phone email bloodGroup location')
+            .lean();
+
+        if (!request) {
+            return res.status(404).json({ success: false, message: 'Emergency request not found' });
+        }
+
+        // Manually resolve acceptedDonor (polymorphic)
+        if (request.acceptedDonor) {
+            let donorData = await Donor.findById(request.acceptedDonor)
+                .select('firstName lastName phone email bloodGroup gender city state address location')
+                .lean();
+            if (!donorData) {
+                donorData = await PublicUser.findById(request.acceptedDonor)
+                    .select('firstName lastName phone email bloodGroup gender city state address location')
+                    .lean();
+            }
+            request.acceptedDonor = donorData || request.acceptedDonor;
+        }
+
+        res.json({ success: true, data: request });
+    } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
 });
