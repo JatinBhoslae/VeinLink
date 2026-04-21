@@ -998,3 +998,5 @@
 [2026-04-21T08:10:42.582Z] ✅ [GET] /api/staff - 304 (17ms)
 [2026-04-21T08:12:33.651Z] ✅ [OPTIONS] /api/public-auth/location - 200 (0ms)
 [2026-04-21T08:12:33.690Z] ✅ [PATCH] /api/public-auth/location - 200 (36ms)
+[2026-04-21T08:17:34.176Z] ✅ [OPTIONS] /api/public-auth/location - 200 (1ms)
+[2026-04-21T08:17:34.229Z] ✅ [PATCH] /api/public-auth/location - 200 (47ms)
