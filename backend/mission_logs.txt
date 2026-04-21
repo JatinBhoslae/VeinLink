@@ -2202,3 +2202,5 @@
 [2026-04-21T09:39:25.733Z] 🔌 [SOCKET] Operative identified: jatinbhosale428@gmail.com (public)
 [2026-04-21T09:39:25.747Z] ✅ [GET] /api/v-stats/live-map-data - 304 (39ms)
 [2026-04-21T09:39:25.788Z] ✅ [GET] /api/v-stats/live-map-data - 304 (40ms)
+[2026-04-21T09:40:08.190Z] ✅ [OPTIONS] /api/public-auth/location - 200 (1ms)
+[2026-04-21T09:40:08.226Z] ✅ [PATCH] /api/public-auth/location - 200 (33ms)
