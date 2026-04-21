@@ -127,4 +127,11 @@ export const PublicAuthProvider = ({ children }) => {
   );
 };
 
-export const usePublicAuth = () => useContext(PublicAuthContext);
+export const usePublicAuth = () => {
+  const context = useContext(PublicAuthContext);
+  if (!context) {
+    // Return a tactical fallback if context is lost during HMR
+    return { user: null, loading: true };
+  }
+  return context;
+};
