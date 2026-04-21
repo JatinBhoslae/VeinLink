@@ -1,8 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { Bell, BellRing, X, Check, CheckCircle, AlertTriangle, Info, AlertCircle } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import { useNavigate, Link } from 'react-router-dom';
 import { useSocket } from '../../utils/socket.jsx';
 import api from '../../lib/api';
+import publicApi from '../../lib/publicApi';
+import { useAuth } from '../../context/AuthContext';
+import { usePublicAuth } from '../../context/PublicAuthContext';
 import toast from 'react-hot-toast';
 
 export const NotificationDropdown = () => {
@@ -13,6 +17,13 @@ export const NotificationDropdown = () => {
     markAllAsRead,
     isConnected
   } = useSocket();
+  
+   const { user } = useAuth();
+   const { user: publicUser } = usePublicAuth();
+   const navigate = useNavigate();
+   
+   // Determine which API client and token system to use
+   const apiClient = publicUser ? publicApi : api;
   
   const [isOpen, setIsOpen] = useState(false);
   const [allNotifications, setAllNotifications] = useState([]);
@@ -43,7 +54,7 @@ export const NotificationDropdown = () => {
   const fetchNotifications = async (pageNum = 1, reset = false) => {
     setLoading(true);
     try {
-      const response = await api.get(`/notifications?page=${pageNum}&limit=20`);
+      const response = await apiClient.get(`/notifications?page=${pageNum}&limit=20`);
       const newNotifications = response.data.data.notifications;
       
       if (reset) {
@@ -64,7 +75,7 @@ export const NotificationDropdown = () => {
 
   const handleMarkAsRead = async (notificationId) => {
     try {
-      await api.patch(`/notifications/${notificationId}/read`);
+      await apiClient.patch(`/notifications/${notificationId}/read`);
       markAsRead(notificationId);
       
       // Update local state
@@ -82,7 +93,7 @@ export const NotificationDropdown = () => {
 
   const handleMarkAllAsRead = async () => {
     try {
-      await api.patch('/notifications/read-all');
+      await apiClient.patch('/notifications/read-all');
       markAllAsRead();
       
       // Update local state
@@ -99,7 +110,7 @@ export const NotificationDropdown = () => {
 
   const handleDeleteNotification = async (notificationId) => {
     try {
-      await api.delete(`/notifications/${notificationId}`);
+      await apiClient.delete(`/notifications/${notificationId}`);
       setAllNotifications(prev => prev.filter(notif => notif._id !== notificationId));
       toast.success('Notification deleted');
     } catch (error) {
@@ -261,8 +272,12 @@ export const NotificationDropdown = () => {
                           
                           {notification.actionRequired && notification.actionUrl && (
                             <button
-                              onClick={() => {
-                                window.location.href = notification.actionUrl;
+                               onClick={() => {
+                                if (notification.actionUrl.startsWith('http')) {
+                                  window.open(notification.actionUrl, '_blank');
+                                } else {
+                                  navigate(notification.actionUrl);
+                                }
                                 setIsOpen(false);
                               }}
                               className="mt-2 text-xs text-blue-600 dark:text-blue-400 hover:underline"

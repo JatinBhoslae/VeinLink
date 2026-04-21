@@ -22,6 +22,7 @@ import {
     Moon
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { NotificationDropdown } from '../Notifications/NotificationDropdown';
 
 export const DonorLayout = ({ children }) => {
     const { user, logout } = usePublicAuth();
@@ -199,6 +200,7 @@ export const DonorLayout = ({ children }) => {
                             >
                                 {darkMode ? <Sun size={20} /> : <Moon size={20} />}
                             </button>
+                            <NotificationDropdown />
                             <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white font-black text-xs">
                                  {user?.bloodGroup}
                             </div>
@@ -232,10 +234,7 @@ export const DonorLayout = ({ children }) => {
                                {darkMode ? <Sun size={24} /> : <Moon size={24} />}
                            </button>
 
-                           <button className="p-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl relative transition-all">
-                                <Bell size={24} />
-                                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-red-600 rounded-full border-[3px] border-white dark:border-slate-900"></span>
-                           </button>
+                           <NotificationDropdown />
 
                           <div className="relative group" ref={dropdownRef}>
                                <button 

@@ -56,11 +56,11 @@ router.get('/', protectPublic, async (req, res, next) => {
 
         res.json({
             success: true,
-            data: notifications,
-            pagination: {
+            data: {
+                notifications: notifications,
                 total,
                 page,
-                pages: Math.ceil(total / limit)
+                totalPages: Math.ceil(total / limit)
             }
         });
     } catch (error) {
