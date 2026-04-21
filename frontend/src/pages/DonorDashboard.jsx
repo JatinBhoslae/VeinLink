@@ -10,28 +10,20 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import {
     Heart,
-    Droplet,
     History,
     Loader2,
     ShieldCheck,
-    ShieldX,
-    AlertCircle,
-    TrendingUp,
     MapPin,
     Zap,
     Calendar,
     Award,
-    Flame,
     User,
-    QrCode,
     X,
     FileText,
-    Verified,
     BadgeCheck,
     Activity,
     Download,
     Lock,
-    Clock,
     Phone
 } from 'lucide-react';
 import QRCode from 'react-qr-code';
