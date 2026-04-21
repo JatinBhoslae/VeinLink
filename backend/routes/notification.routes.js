@@ -72,6 +72,69 @@ router.get('/', protectAny, async (req, res, next) => {
 });
 
 /**
+ * @route   PATCH /api/notifications/:id/read
+ * @desc    Mark a single notification as read
+ * @access  Private
+ */
+router.patch('/:id/read', protectAny, async (req, res, next) => {
+    try {
+        const userId = req.user?._id || req.publicUser?._id;
+        const notification = await NotificationLog.findOneAndUpdate(
+            { _id: req.params.id, userId },
+            { read: true, readAt: new Date() },
+            { new: true }
+        );
+
+        if (!notification) {
+            return res.status(404).json({ success: false, message: 'Notification not found' });
+        }
+
+        res.json({ success: true, data: notification });
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
+ * @route   PATCH /api/notifications/read-all
+ * @desc    Mark all unread notifications as read
+ * @access  Private
+ */
+router.patch('/read-all', protectAny, async (req, res, next) => {
+    try {
+        const userId = req.user?._id || req.publicUser?._id;
+        await NotificationLog.updateMany(
+            { userId, read: false },
+            { read: true, readAt: new Date() }
+        );
+
+        res.json({ success: true, message: 'All notifications marked as read' });
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
+ * @route   DELETE /api/notifications/:id
+ * @desc    Delete a notification log
+ * @access  Private
+ */
+router.delete('/:id', protectAny, async (req, res, next) => {
+    try {
+        const userId = req.user?._id || req.publicUser?._id;
+        const notification = await NotificationLog.findOneAndDelete({ _id: req.params.id, userId });
+
+        if (!notification) {
+            return res.status(404).json({ success: false, message: 'Notification not found' });
+        }
+
+        res.json({ success: true, message: 'Notification removed from HUD' });
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
  * @route   GET /api/notifications/logs
  * @desc    Get last 50 notification logs for any user type
  * @access  Private (Staff or Donor)
