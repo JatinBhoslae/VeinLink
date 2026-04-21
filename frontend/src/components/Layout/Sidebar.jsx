@@ -15,8 +15,11 @@ import {
   ArrowRightLeft,
   Zap,
   ScanLine,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useTheme } from '../../context/ThemeContext';
 import api from '../../lib/api';
 
 const menuItems = {
@@ -54,6 +57,7 @@ const menuItems = {
 
 export const Sidebar = () => {
   const { user, logout } = useAuth();
+  const { darkMode, toggleDarkMode } = useTheme();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [pendingHospitalsCount, setPendingHospitalsCount] = useState(0);
@@ -153,13 +157,25 @@ export const Sidebar = () => {
                 {user?.role?.replace('_', ' ')}
               </p>
             </div>
-            <button
-              onClick={logout}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
-            >
-              <LogOut size={20} />
-              <span>Logout</span>
-            </button>
+            
+            <div className="flex items-center gap-2">
+              <button
+                onClick={logout}
+                className="flex-1 flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                title="Logout"
+              >
+                <LogOut size={20} />
+                <span>Logout</span>
+              </button>
+
+              <button
+                onClick={toggleDarkMode}
+                className="p-3 text-gray-500 hover:text-primary-600 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors border border-gray-100 dark:border-gray-700"
+                title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+              >
+                {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+            </div>
           </div>
         </div>
       </aside>

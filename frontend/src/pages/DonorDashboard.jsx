@@ -324,13 +324,13 @@ export const DonorDashboard = () => {
                                         <div className="inline-block bg-slate-800/50 backdrop-blur-md border border-slate-700/50 rounded-full px-4 py-1.5 mb-3">
                                             <p className="text-primary-500 font-black uppercase text-[10px] tracking-[0.3em] flex items-center gap-2">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse"></span>
-                                                Tactical Status: Operational
+                                                "Tactical Status: Operational"
                                             </p>
                                         </div>
                                         <h2 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none">
                                             {user?.firstName} <span className="text-primary-600">{user?.lastName}</span>
                                         </h2>
-                                        <p className="text-slate-400 font-black uppercase text-[10px] tracking-[0.5em] mt-2">Vein Link Verified Personnel</p>
+                                        <p className="text-slate-400 font-black uppercase text-[10px] tracking-[0.5em] mt-2">"Vein Link Verified Personnel"</p>
                                     </div>
 
                                     <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
@@ -360,7 +360,7 @@ export const DonorDashboard = () => {
                         <div className="bg-white dark:bg-slate-800 p-8 md:p-10 rounded-[3.5rem] border border-slate-100 dark:border-slate-700 shadow-sm relative overflow-hidden group">
                             <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
                                 <div className="space-y-1">
-                                    <h3 className="text-2xl font-black uppercase tracking-tighter">Operational Recovery Roadmap</h3>
+                                    <h3 className="text-2xl font-black uppercase tracking-tighter">"Operational Recovery Roadmap"</h3>
                                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">90-Day Tactical Regeneration Cycle</p>
                                 </div>
                                 <div className="flex items-center gap-4">
@@ -450,10 +450,10 @@ export const DonorDashboard = () => {
                         {/* Stats Dashboard */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[
-                                { label: 'Total Missions', value: data?.stats?.totalDonations || 0, icon: History, color: 'text-primary-500', bg: 'bg-primary-500/5' },
-                                { label: 'Lives Saved', value: data?.stats?.livesSaved || 0, icon: Heart, color: 'text-emerald-500', bg: 'bg-emerald-500/5' },
-                                { label: 'Honor Points', value: data?.stats?.rewardPoints || 0, icon: Zap, color: 'text-amber-500', bg: 'bg-amber-500/5' },
-                                { label: 'Streak Status', value: (data?.stats?.streakDays || 0) + ' Days', icon: Activity, color: 'text-blue-500', bg: 'bg-blue-500/5' }
+                                { label: "Total Missions", value: data?.stats?.totalDonations || 0, icon: History, color: 'text-primary-500', bg: 'bg-primary-500/5' },
+                                { label: "Lives Saved", value: data?.stats?.livesSaved || 0, icon: Heart, color: 'text-emerald-500', bg: 'bg-emerald-500/5' },
+                                { label: "Honor Points", value: data?.stats?.rewardPoints || 0, icon: Zap, color: 'text-amber-500', bg: 'bg-amber-500/5' },
+                                { label: "Streak Status", value: (data?.stats?.streakDays || 0) + ' Days', icon: Activity, color: 'text-blue-500', bg: 'bg-blue-500/5' }
                             ].map((stat, i) => (
                                 <div key={i} className="bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all group overflow-hidden relative">
                                     <div className={`absolute top-0 right-0 w-24 h-24 ${stat.bg} -mr-8 -mt-8 rounded-full blur-2xl group-hover:blur-xl transition-all`}></div>
@@ -508,7 +508,7 @@ export const DonorDashboard = () => {
                                             <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1 inline-block">
                                                 <p className="text-[10px] font-black uppercase tracking-widest">Recovery Protocol</p>
                                             </div>
-                                            <h3 className="text-4xl font-black uppercase tracking-tighter leading-tight">Next Mission<br/>In <span className="text-primary-400">{eligibility.daysRemaining} Days</span></h3>
+                                            <h3 className="text-4xl font-black uppercase tracking-tighter leading-tight">"Next Mission"<br/>In <span className="text-primary-400">{eligibility.daysRemaining} Days</span></h3>
                                             <p className="text-xs font-medium text-indigo-100/80">Your vitals are currently in the recovery phase. Re-calibration complete on {eligibility.nextEligibleDate && format(new Date(eligibility.nextEligibleDate), 'MMM dd')}.</p>
                                         </div>
                                     </div>
@@ -700,7 +700,7 @@ export const DonorDashboard = () => {
                 {activeTab === 'profile' && (
                     <div className="max-w-3xl mx-auto space-y-8 animate-in slide-in-from-bottom-8 duration-500">
                         <div className="space-y-2">
-                             <h2 className="text-4xl font-black uppercase tracking-tighter">Personnel Dossier</h2>
+                             <h2 className="text-4xl font-black uppercase tracking-tighter">"Personnel Dossier"</h2>
                              <p className="text-slate-400 font-black uppercase text-[10px] tracking-widest">Coordinate Identity & Medical Protocol</p>
                         </div>
                         <form onSubmit={handleProfileUpdate} className="bg-white dark:bg-slate-800 p-10 rounded-[3.5rem] border border-slate-100 dark:border-slate-700 shadow-sm relative overflow-hidden">

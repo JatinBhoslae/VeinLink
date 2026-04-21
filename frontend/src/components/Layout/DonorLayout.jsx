@@ -41,40 +41,16 @@ export const DonorLayout = ({ children }) => {
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
-        
-        // DOM Reparenting for Global Translator Widget
-        const targetContainer = document.getElementById('nav_translate_container');
-        const gtElement = document.getElementById('google_translate_element');
-        
-        let timer = null;
-        if (targetContainer && gtElement) {
-            targetContainer.appendChild(gtElement);
-        } else {
-            // Give root a moment if racing
-            timer = setTimeout(() => {
-                const retryContainer = document.getElementById('nav_translate_container');
-                const retryGt = document.getElementById('google_translate_element');
-                if (retryContainer && retryGt) retryContainer.appendChild(retryGt);
-            }, 300);
-        }
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
-            if (timer) clearTimeout(timer);
-            
-            // Return to root wrapper on unmount
-            const wrapper = document.getElementById('google_translate_wrapper');
-            const gtRef = document.getElementById('google_translate_element');
-            if (wrapper && gtRef) {
-                wrapper.appendChild(gtRef);
-            }
         };
     }, []);
 
     const menuItems = [
         { id: 'overview', label: 'Dashboard', icon: LayoutDashboard, path: '/user/donor-dashboard' },
         { id: 'emergency', label: 'Emergency Help', icon: Zap, path: '/user/emergency' },
-        { id: 'map', label: 'Live Demand Map', icon: MapPin, path: '/live-map' },
+        { id: 'map', label: 'Live Map', icon: MapPin, path: '/live-map' },
         { id: 'history', label: 'Mission Log', icon: History, path: '/user/donor-dashboard?tab=history' },
         { id: 'signals', label: 'Tactical Signals', icon: Bell, path: '/user/donor-dashboard?tab=notifications' },
         { id: 'appointments', label: 'Appointments', icon: Calendar, path: '/user/appointments' },
@@ -164,19 +140,29 @@ export const DonorLayout = ({ children }) => {
                                     <p className="text-sm font-black text-slate-900 dark:text-white truncate">{user?.firstName} {user?.lastName}</p>
                                     <div className="flex items-center gap-1.5 mt-0.5">
                                         <ShieldCheck size={12} className="text-emerald-500" />
-                                        <p className="text-[9px] text-slate-400 uppercase tracking-widest font-black">Verified</p>
+                                        <p className="text-[9px] text-slate-400 uppercase tracking-widest font-black">Verified Personnel</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <button 
-                            onClick={logout}
-                            className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl text-slate-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:text-rose-600 transition-all font-black uppercase text-[10px] tracking-widest group"
-                        >
-                            <LogOut size={20} className="group-hover:rotate-12 transition-transform" />
-                            <span>Terminate Link</span>
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <button 
+                                onClick={logout}
+                                className="flex-1 flex items-center gap-4 px-6 py-4 rounded-2xl text-slate-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:text-rose-600 transition-all font-black uppercase text-[10px] tracking-widest group border border-transparent hover:border-rose-100 dark:hover:border-rose-900"
+                            >
+                                <LogOut size={20} className="group-hover:rotate-12 transition-transform" />
+                                <span>Terminate Link</span>
+                            </button>
+                            
+                            <button 
+                                onClick={toggleDarkMode}
+                                className="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-primary-600 transition-all shadow-inner"
+                                title="Toggle Dark Mode"
+                            >
+                                {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </aside>
@@ -193,13 +179,8 @@ export const DonorLayout = ({ children }) => {
                             </button>
                             <h2 className="font-black uppercase tracking-tighter text-xl">Vien<span className="text-primary-600">Link</span></h2>
                         </div>
-                        <div className="flex items-center gap-3">
-                            <button 
-                                onClick={toggleDarkMode}
-                                className="p-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-all"
-                            >
-                                {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-                            </button>
+                        <div className="flex items-center gap-2 md:gap-4">
+                            {/* <LanguageSelector /> */}
                             <NotificationDropdown />
                             <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white font-black text-xs">
                                  {user?.bloodGroup}
@@ -214,7 +195,7 @@ export const DonorLayout = ({ children }) => {
                           <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                           <input 
                               type="text" 
-                              placeholder="Synchronize tactical records..." 
+                              placeholder="Synchronize tactical records..."
                               value={searchQuery || ''}
                               onChange={(e) => setSearchQuery(e.target.value)}
                               className="w-full pl-16 pr-8 py-4 bg-slate-100 dark:bg-slate-800/50 border-none rounded-[2rem] text-sm font-medium focus:ring-2 focus:ring-primary-500/50 outline-none transition-all placeholder:text-slate-400 placeholder:uppercase placeholder:text-[10px] placeholder:tracking-widest"
@@ -222,14 +203,10 @@ export const DonorLayout = ({ children }) => {
                      </div>
 
                      <div className="flex items-center gap-6">
-                          <div className="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-5 py-2.5 rounded-full border border-slate-200/50 dark:border-slate-700/50">
-                               <Users size={16} className="text-primary-600" />
-                               <div id="nav_translate_container" className="h-6 flex items-center"></div>
-                          </div>
-                          
-                          <button 
-                               onClick={toggleDarkMode}
-                               className="p-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-all"
+                            
+                            <button 
+                                onClick={toggleDarkMode}
+                                className="p-3 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-all"
                            >
                                {darkMode ? <Sun size={24} /> : <Moon size={24} />}
                            </button>
@@ -255,14 +232,14 @@ export const DonorLayout = ({ children }) => {
                                    <div className="absolute right-0 mt-4 w-64 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-[2rem] shadow-2xl py-3 z-50 animate-in fade-in slide-in-from-top-4 duration-300">
                                        <div className="px-6 py-4 border-b border-slate-50 dark:border-slate-700 mb-2">
                                            <p className="text-xs font-black text-slate-900 dark:text-white truncate">{user?.email}</p>
-                                           <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">Verified Pulse Link</p>
+                                           <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">"Verified Personnel"</p>
                                        </div>
                                        <button 
                                            onClick={() => { navigate('/user/donor-dashboard?tab=profile'); setProfileDropdownOpen(false); }}
                                            className="w-full flex items-center gap-4 px-6 py-3.5 text-xs font-black uppercase tracking-widest text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all"
                                        >
                                            <User size={18} />
-                                           <span>Manage Profile</span>
+                                           <span>Profile</span>
                                        </button>
                                        <div className="h-px bg-slate-50 dark:bg-slate-700 mx-4 my-2"></div>
                                        <button 
@@ -270,7 +247,7 @@ export const DonorLayout = ({ children }) => {
                                            className="w-full flex items-center gap-4 px-6 py-3.5 text-xs font-black uppercase tracking-widest text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
                                        >
                                            <LogOut size={18} />
-                                           <span>Terminate Link</span>
+                                           <span>Logout</span>
                                        </button>
                                    </div>
                                )}

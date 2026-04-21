@@ -122,14 +122,21 @@ router.patch('/read-all', protectAny, async (req, res, next) => {
 router.delete('/:id', protectAny, async (req, res, next) => {
     try {
         const userId = req.user?._id || req.publicUser?._id;
+        
+        // Tactical Trace
+        console.log(`🗑️ [NOTIFICATION-DEL] Attempting termination. ID: ${req.params.id} | Operative: ${userId} (${req.userType})`);
+        
         const notification = await NotificationLog.findOneAndDelete({ _id: req.params.id, userId });
 
         if (!notification) {
-            return res.status(404).json({ success: false, message: 'Notification not found' });
+            console.log(`❌ [NOTIFICATION-DEL-FAILED] Tactical record not found in sector. ID: ${req.params.id}`);
+            return res.status(404).json({ success: false, message: 'Notification not found in your sector' });
         }
 
+        console.log(`✅ [NOTIFICATION-DEL-SUCCESS] Record purged. ID: ${req.params.id}`);
         res.json({ success: true, message: 'Notification removed from HUD' });
     } catch (error) {
+        console.error(`🚨 [NOTIFICATION-DEL-ERROR] System failure: ${error.message}`);
         next(error);
     }
 });

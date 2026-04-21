@@ -186,7 +186,7 @@ export const NotificationDropdown = () => {
           <div className="p-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-gray-900 dark:text-white">
-                Notifications
+                "Notifications"
               </h3>
               <div className="flex items-center gap-2">
                 {unreadCount > 0 && (
@@ -194,7 +194,7 @@ export const NotificationDropdown = () => {
                     onClick={handleMarkAllAsRead}
                     className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
                   >
-                    Mark all read
+                    "Mark all read"
                   </button>
                 )}
                 <button
@@ -217,7 +217,7 @@ export const NotificationDropdown = () => {
             {allNotifications.length === 0 && !loading ? (
               <div className="p-8 text-center text-gray-500 dark:text-gray-400">
                 <Bell className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                <p className="text-sm">No notifications yet</p>
+                <p className="text-sm">"No notifications yet"</p>
               </div>
             ) : (
               <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -295,7 +295,7 @@ export const NotificationDropdown = () => {
             {loading && (
               <div className="p-4 text-center text-gray-500 dark:text-gray-400">
                 <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="text-sm mt-2">Loading...</p>
+                <p className="text-sm mt-2">"Loading..."</p>
               </div>
             )}
             
@@ -304,7 +304,7 @@ export const NotificationDropdown = () => {
                 onClick={loadMore}
                 className="p-3 text-center text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 w-full"
               >
-                Load more
+                "Load more"
               </button>
             )}
           </div>
