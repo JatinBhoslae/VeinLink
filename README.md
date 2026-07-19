@@ -102,3 +102,6 @@ npm run dev
 *Vein Link — Synchronizing the heartbeat of humanity.*
 — Synchronizing the heartbeat of humanity.*
 # VeinLink
+
+admin email - admin@veinlink.com
+admin pass - password123
